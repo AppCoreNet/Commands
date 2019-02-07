@@ -46,17 +46,18 @@ namespace AppCore.Commands
             Ensure.Arg.NotNull(command, nameof(command));
 
             Type commandType = command.GetType();
+
+            var pipeline =
+                (ICommandPipeline<TResult>) CommandPipelineFactory.CreateCommandPipeline(commandType, _container);
+
             CommandDescriptor commandDescriptor = _commandDescriptorFactory.CreateDescriptor(commandType);
-            ICommandContext commandContext = CommandContextFactory.CreateCommandContext(commandDescriptor, command);
+            ICommandContext commandContext = pipeline.CreateCommandContext(commandDescriptor, command);
 
             if (_commandContextAccessor != null)
                 _commandContextAccessor.CommandContext = commandContext;
 
             try
             {
-                var pipeline =
-                    (ICommandPipeline<TResult>) CommandPipelineFactory.CreateCommandPipeline(commandType, _container);
-
                 return await pipeline.InvokeAsync(commandContext, cancellationToken)
                                      .ConfigureAwait(false);
             }

@@ -25,7 +25,8 @@ namespace AppCore.Commands.Validation
             CommandPipelineDelegate<TCommand, TResult> next,
             CancellationToken cancellationToken)
         {
-            await _validator.ValidateAndThrowAsync(context.Command, cancellationToken: cancellationToken);
+            await _validator.ValidateAndThrowAsync(context.Command, cancellationToken: cancellationToken)
+                            .ConfigureAwait(false);
 
             await next(context, cancellationToken)
                 .ConfigureAwait(false);
