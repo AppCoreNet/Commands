@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Threading;
 using System.Threading.Tasks;
+using AppCore.Commands.Metadata;
 using AppCore.DependencyInjection;
 
 namespace AppCore.Commands.Pipeline
@@ -21,6 +22,11 @@ namespace AppCore.Commands.Pipeline
         {
             _behaviors = container.ResolveAll<ICommandPipelineBehavior<TCommand, TResult>>();
             _handler = container.Resolve<ICommandHandler<TCommand, TResult>>();
+        }
+
+        public ICommandContext CreateCommandContext(CommandDescriptor descriptor, ICommand<TResult> command)
+        {
+            return new CommandContext<TCommand, TResult>(descriptor, (TCommand) command);
         }
 
         public async Task<TResult> InvokeAsync(ICommandContext context, CancellationToken cancellationToken)

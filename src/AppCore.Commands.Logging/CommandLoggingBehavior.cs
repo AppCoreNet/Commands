@@ -2,6 +2,7 @@
 // Copyright (c) 2018 the AppCore .NET project.
 
 using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using AppCore.Commands.Pipeline;
@@ -38,14 +39,18 @@ namespace AppCore.Commands.Logging
         {
             _logger.CommandProcessing(context);
 
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
             try
             {
                 await next(context, cancellationToken)
                     .ConfigureAwait(false);
 
+                stopwatch.Stop();
+
                 if (!context.IsFailed)
                 {
-                    _logger.CommandProcessed(context);
+                    _logger.CommandProcessed(context, stopwatch.Elapsed);
                 }
                 else
                 {

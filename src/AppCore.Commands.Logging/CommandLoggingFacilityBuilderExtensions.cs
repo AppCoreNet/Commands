@@ -8,16 +8,19 @@ using AppCore.Diagnostics;
 // ReSharper disable once CheckNamespace
 namespace AppCore.DependencyInjection
 {
-    public static class CommandValidationFacilityBuilderExtensions
+    /// <summary>
+    /// Provides extension methods to register logging with the <see cref="ICommandsFacility"/>.
+    /// </summary>
+    public static class CommandLoggingFacilityBuilderExtensions
     {
         /// <summary>
-        /// Registers command validation pipeline behavior.
+        /// Registers command logging pipeline behavior.
         /// </summary>
         /// <exception cref="ArgumentNullException">Argument <paramref name="builder"/> is <c>null</c>.</exception>
-        public static IFacilityBuilder<ICommandsFacility> AddValidation(this IFacilityBuilder<ICommandsFacility> builder)
+        public static IFacilityBuilder<ICommandsFacility> AddLogging(this IFacilityBuilder<ICommandsFacility> builder)
         {
             Ensure.Arg.NotNull(builder, nameof(builder));
-            return builder.AddExtension<CommandValidationFacilityExtension>();
+            return builder.AddExtension<CommandLoggingFacilityExtension>();
         }
     }
 }
