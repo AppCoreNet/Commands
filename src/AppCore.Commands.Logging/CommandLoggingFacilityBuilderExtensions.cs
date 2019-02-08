@@ -8,6 +8,9 @@ using AppCore.Diagnostics;
 // ReSharper disable once CheckNamespace
 namespace AppCore.DependencyInjection
 {
+    /// <summary>
+    /// Provides extension methods to register logging with the <see cref="ICommandsFacility"/>.
+    /// </summary>
     public static class CommandLoggingFacilityBuilderExtensions
     {
         /// <summary>

@@ -13,6 +13,7 @@ namespace AppCore.DependencyInjection
     /// </summary>
     public class CommandValidationFacilityExtension : FacilityExtension<ICommandsFacility>
     {
+        /// <inheritdoc />
         protected override void RegisterComponents(IComponentRegistry registry, ICommandsFacility facility)
         {
             registry.Register(typeof(ICommandPipelineBehavior<,>))

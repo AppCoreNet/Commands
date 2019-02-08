@@ -48,11 +48,23 @@ namespace AppCore.Commands
             return 735275808;
         }
 
+        /// <summary>
+        /// Compares two instances of <see cref="VoidResult"/> for equality.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static bool operator ==(VoidResult left, VoidResult right)
         {
             return Equals(left, right);
         }
 
+        /// <summary>
+        /// Compares two instances of <see cref="VoidResult"/> for un-equality.
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static bool operator !=(VoidResult left, VoidResult right)
         {
             return !Equals(left, right);

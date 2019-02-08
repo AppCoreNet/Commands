@@ -8,6 +8,9 @@ using AppCore.Diagnostics;
 // ReSharper disable once CheckNamespace
 namespace AppCore.DependencyInjection
 {
+    /// <summary>
+    /// Provides extension methods to register validation with the <see cref="ICommandsFacility"/>.
+    /// </summary>
     public static class CommandValidationFacilityBuilderExtensions
     {
         /// <summary>
