@@ -1,8 +1,8 @@
 <Project>
   <PropertyGroup>
-    <AppCore_Shared_Version>1.0.0-alpha.55</AppCore_Shared_Version>
-    <AppCore_DI_Version>1.0.0-alpha.47</AppCore_DI_Version>
-    <AppCore_Logging_Version>1.0.0-alpha.26</AppCore_Logging_Version>
-    <AppCore_Validation_Version>1.0.0-alpha.5</AppCore_Validation_Version>
+    <AppCore_Shared_Version>1.0.0-alpha.70</AppCore_Shared_Version>
+    <AppCore_DI_Version>1.0.0-alpha.53</AppCore_DI_Version>
+    <AppCore_Logging_Version>1.0.0-alpha.33</AppCore_Logging_Version>
+    <AppCore_Validation_Version>1.0.0-alpha.9</AppCore_Validation_Version>
   </PropertyGroup>
 </Project>
