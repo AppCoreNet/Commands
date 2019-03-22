@@ -16,4 +16,9 @@
     <ProjectReference Include="..\AppCore.Commands.Abstractions\AppCore.Commands.Abstractions.csproj" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)'=='net452'">
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Threading.Tasks" />
+  </ItemGroup>
+
 </Project>
