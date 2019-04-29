@@ -14,7 +14,7 @@ namespace AppCore.DependencyInjection
     /// <summary>
     /// Provides extension methods to configure the <see cref="ICommandsFacility"/>.
     /// </summary>
-    public static class CommandsFacilityBuilderExtensions
+    public static class CommandsRegistrationExtensions
     {
         /// <summary>
         /// Configure the default lifetime of command components.
@@ -47,7 +47,7 @@ namespace AppCore.DependencyInjection
             Ensure.Arg.NotNull(builder, nameof(builder));
 
             return builder.AddExtension(
-                new DelegateRegistrationFacilityExtension(
+                new RegistrationFacilityExtension<ICommandsFacility>(
                     typeof(ICommandHandler<,>),
                     (r,f) =>
                     {
@@ -70,7 +70,7 @@ namespace AppCore.DependencyInjection
             Ensure.Arg.NotNull(builder, nameof(builder));
 
             return builder.AddExtension(
-                new DelegateRegistrationFacilityExtension(
+                new RegistrationFacilityExtension<ICommandsFacility>(
                     typeof(IPreCommandHandler<,>),
                     (r,f) =>
                     {
@@ -93,7 +93,7 @@ namespace AppCore.DependencyInjection
             Ensure.Arg.NotNull(builder, nameof(builder));
 
             return builder.AddExtension(
-                new DelegateRegistrationFacilityExtension(
+                new RegistrationFacilityExtension<ICommandsFacility>(
                     typeof(IPostCommandHandler<,>),
                     (r,f) =>
                     {
@@ -116,7 +116,7 @@ namespace AppCore.DependencyInjection
             Ensure.Arg.NotNull(builder, nameof(builder));
 
             return builder.AddExtension(
-                new DelegateRegistrationFacilityExtension(
+                new RegistrationFacilityExtension<ICommandsFacility>(
                     typeof(ICommandPipelineBehavior<,>),
                     (r,f) =>
                     {
