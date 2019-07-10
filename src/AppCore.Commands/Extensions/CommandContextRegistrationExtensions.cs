@@ -24,7 +24,7 @@ namespace AppCore.DependencyInjection
             this IFacilityBuilder<ICommandsFacility> builder)
         {
             Ensure.Arg.NotNull(builder, nameof(builder));
-            return builder.AddExtension<CommandContextExtension>();
+            return builder.Add<CommandContextExtension>();
         }
     }
 }

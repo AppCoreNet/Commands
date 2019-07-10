@@ -29,7 +29,7 @@ namespace AppCore.DependencyInjection
         {
             Ensure.Arg.NotNull(builder, nameof(builder));
 
-            builder.Facility.Lifetime = lifetime;
+            builder.Configure(f => f.Lifetime = lifetime);
             return builder;
         }
 
@@ -46,7 +46,7 @@ namespace AppCore.DependencyInjection
         {
             Ensure.Arg.NotNull(builder, nameof(builder));
 
-            return builder.AddExtension(
+            return builder.Add(
                 new RegistrationFacilityExtension<ICommandsFacility>(
                     typeof(ICommandHandler<,>),
                     (r,f) =>
@@ -69,7 +69,7 @@ namespace AppCore.DependencyInjection
         {
             Ensure.Arg.NotNull(builder, nameof(builder));
 
-            return builder.AddExtension(
+            return builder.Add(
                 new RegistrationFacilityExtension<ICommandsFacility>(
                     typeof(IPreCommandHandler<,>),
                     (r,f) =>
@@ -92,7 +92,7 @@ namespace AppCore.DependencyInjection
         {
             Ensure.Arg.NotNull(builder, nameof(builder));
 
-            return builder.AddExtension(
+            return builder.Add(
                 new RegistrationFacilityExtension<ICommandsFacility>(
                     typeof(IPostCommandHandler<,>),
                     (r,f) =>
@@ -115,7 +115,7 @@ namespace AppCore.DependencyInjection
         {
             Ensure.Arg.NotNull(builder, nameof(builder));
 
-            return builder.AddExtension(
+            return builder.Add(
                 new RegistrationFacilityExtension<ICommandsFacility>(
                     typeof(ICommandPipelineBehavior<,>),
                     (r,f) =>
