@@ -19,7 +19,7 @@ namespace AppCore.DependencyInjection
         /// Registers command validation pipeline behavior.
         /// </summary>
         /// <exception cref="ArgumentNullException">Argument <paramref name="builder"/> is <c>null</c>.</exception>
-        public static IFacilityBuilder<ICommandsFacility> UseValidation(
+        public static IFacilityBuilder<ICommandsFacility> AddValidation(
             this IFacilityBuilder<ICommandsFacility> builder)
         {
             Ensure.Arg.NotNull(builder, nameof(builder));

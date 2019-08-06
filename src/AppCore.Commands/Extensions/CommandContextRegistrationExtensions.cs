@@ -20,7 +20,7 @@ namespace AppCore.DependencyInjection
         /// </summary>
         /// <param name="builder">The <see cref="IFacilityBuilder{TFacility}"/>.</param>
         /// <returns>The passed <paramref name="builder"/>.</returns>
-        public static IFacilityBuilder<ICommandsFacility> UseCommandContextAccessor(
+        public static IFacilityBuilder<ICommandsFacility> AddContextAccessor(
             this IFacilityBuilder<ICommandsFacility> builder)
         {
             Ensure.Arg.NotNull(builder, nameof(builder));
