@@ -1,15 +1,15 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>net452;netstandard1.3;netstandard2.0</TargetFrameworks>
-    <Description>AppCore command logging extension.</Description>
+    <Description>Adds logging to AppCore .NET commands.</Description>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AppCore.Diagnostics.Sources" Version="$(AppCore_Shared_Version)">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="AppCore.Logging.Abstractions" Version="$(AppCore_Logging_Version)" />
+    <PackageReference Include="AppCore.Logging" Version="$(AppCore_Logging_Version)" />
   </ItemGroup>
 
   <ItemGroup>

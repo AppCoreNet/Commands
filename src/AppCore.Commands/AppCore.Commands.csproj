@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>net452;netstandard1.3;netstandard2.0</TargetFrameworks>
-    <Description>AppCore commands default implementations.</Description>
+    <Description>Provides default AppCore .NET command implementations.</Description>
   </PropertyGroup>
 
   <ItemGroup>
