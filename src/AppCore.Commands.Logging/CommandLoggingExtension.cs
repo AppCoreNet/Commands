@@ -1,4 +1,4 @@
-﻿// Licensed under the MIT License.
+// Licensed under the MIT License.
 // Copyright (c) 2018 the AppCore .NET project.
 
 using AppCore.Commands.Pipeline;
@@ -15,6 +15,8 @@ namespace AppCore.Commands.Logging
         /// <inheritdoc />
         protected override void RegisterComponents(IComponentRegistry registry, ICommandsFacility facility)
         {
+            registry.RegisterFacility<LoggingFacility>();
+
             registry.Register(typeof(ICommandPipelineBehavior<,>))
                     .Add(typeof(CommandLoggingBehavior<,>))
                     .PerContainer()
