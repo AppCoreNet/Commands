@@ -1,4 +1,4 @@
-﻿// Licensed under the MIT License.
+// Licensed under the MIT License.
 // Copyright (c) 2018 the AppCore .NET project.
 
 using System;
@@ -18,15 +18,17 @@ namespace AppCore.Commands
 {
     public class CommandProcessorTests
     {
-        private readonly ICommandHandler<TestCommand, TestResult> _commandHandler;
         private readonly ICommandDescriptorFactory _commandDescriptorFactory;
         private readonly ICommandContextAccessor _commandContextAccessor;
         private readonly IContainer _container;
         private readonly CommandProcessor _processor;
+        private ICommandHandler<TestCommand, TestResult> _commandHandler;
+        private IEnumerable<ICommandPipelineBehavior<TestCommand, TestResult>> _commandBehaviors;
 
         public CommandProcessorTests()
         {
             _commandHandler = Substitute.For<ICommandHandler<TestCommand, TestResult>>();
+            _commandBehaviors = Enumerable.Empty<ICommandPipelineBehavior<TestCommand, TestResult>>();
 
             _commandDescriptorFactory = Substitute.For<ICommandDescriptorFactory>();
             _commandDescriptorFactory.CreateDescriptor(Arg.Is(typeof(TestCommand)))
@@ -37,10 +39,10 @@ namespace AppCore.Commands
 
             _container = Substitute.For<IContainer>();
             _container.Resolve(Arg.Is(typeof(ICommandHandler<TestCommand, TestResult>)))
-                      .Returns(_commandHandler);
+                      .Returns(_ => _commandHandler);
 
             _container.Resolve(Arg.Is(typeof(IEnumerable<ICommandPipelineBehavior<TestCommand, TestResult>>)))
-                      .Returns(Enumerable.Empty<ICommandPipelineBehavior<TestCommand, TestResult>>());
+                      .Returns(_ => _commandBehaviors);
 
             _processor = new CommandProcessor(_container, _commandDescriptorFactory, _commandContextAccessor);
         }
@@ -93,6 +95,33 @@ namespace AppCore.Commands
         {
             _commandHandler.HandleAsync(Arg.Any<TestCommand>(), Arg.Any<CancellationToken>())
                            .Throws(new Exception());
+
+            Func<Task> process = async () => await _processor.ProcessAsync(new TestCommand(), CancellationToken.None);
+            process.Should()
+                   .Throw<Exception>();
+        }
+
+        [Fact]
+        public void ProcessAsyncThrowsIfCommandBehaviorFailed()
+        {
+            var behavior = Substitute.For<ICommandPipelineBehavior<TestCommand, TestResult>>();
+
+            behavior.ProcessAsync(
+                        Arg.Any<ICommandContext<TestCommand, TestResult>>(),
+                        Arg.Any<CommandPipelineDelegate<TestCommand, TestResult>>(),
+                        Arg.Any<CancellationToken>())
+                    .Returns(
+                        async ci =>
+                        {
+                            var context = ci.ArgAt<ICommandContext<TestCommand, TestResult>>(0);
+                            var next = ci.ArgAt<CommandPipelineDelegate<TestCommand, TestResult>>(1);
+                            var ct = ci.ArgAt<CancellationToken>(2);
+
+                            context.Fail(new Exception());
+                            await next(context, ct);
+                        });
+
+            _commandBehaviors = new[] {behavior};
 
             Func<Task> process = async () => await _processor.ProcessAsync(new TestCommand(), CancellationToken.None);
             process.Should()
