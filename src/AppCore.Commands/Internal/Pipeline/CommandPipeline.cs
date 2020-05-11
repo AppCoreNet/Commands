@@ -1,4 +1,4 @@
-﻿// Licensed under the MIT License.
+// Licensed under the MIT License.
 // Copyright (c) 2018 the AppCore .NET project.
 
 using System;
@@ -66,7 +66,12 @@ namespace AppCore.Commands.Pipeline
                        (ICommandContext<TCommand, TResult>) context,
                        cancellationToken);
 
-            exceptionDispatchInfo?.Throw();
+            if (context.IsFailed)
+            {
+                exceptionDispatchInfo?.Throw();
+                throw context.Error;
+            }
+            
             return ((ICommandContext<TCommand, TResult>) context).Result;
         }
     }
