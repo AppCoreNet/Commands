@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.329
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppCore.Commands.Abstractions", "src\AppCore.Commands.Abstractions\AppCore.Commands.Abstractions.csproj", "{497292E3-9339-478B-ABD4-F3B556B58D3E}"
 EndProject
@@ -12,6 +12,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppCore.Commands.Validation", "src\AppCore.Commands.Validation\AppCore.Commands.Validation.csproj", "{ADE9308F-ABCC-45BE-86A8-2A7266B05FC7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppCore.Commands.Tests", "test\AppCore.Commands.Tests\AppCore.Commands.Tests.csproj", "{2378AE38-4FA1-4172-A897-28425465D68E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppCore.Commands.Authentication.Abstractions", "src\AppCore.Commands.Authentication.Abstractions\AppCore.Commands.Authentication.Abstractions.csproj", "{6FF66F7B-C2A6-440C-9574-02A9D16C585B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppCore.Commands.Authentication", "src\AppCore.Commands.Authentication\AppCore.Commands.Authentication.csproj", "{976FC7FE-8E99-4AD5-BA4B-A416858EF3B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{2378AE38-4FA1-4172-A897-28425465D68E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2378AE38-4FA1-4172-A897-28425465D68E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2378AE38-4FA1-4172-A897-28425465D68E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FF66F7B-C2A6-440C-9574-02A9D16C585B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FF66F7B-C2A6-440C-9574-02A9D16C585B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FF66F7B-C2A6-440C-9574-02A9D16C585B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FF66F7B-C2A6-440C-9574-02A9D16C585B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{976FC7FE-8E99-4AD5-BA4B-A416858EF3B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{976FC7FE-8E99-4AD5-BA4B-A416858EF3B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{976FC7FE-8E99-4AD5-BA4B-A416858EF3B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{976FC7FE-8E99-4AD5-BA4B-A416858EF3B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
