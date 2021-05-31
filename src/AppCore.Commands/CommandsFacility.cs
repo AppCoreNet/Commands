@@ -1,56 +1,150 @@
-﻿// Licensed under the MIT License.
+// Licensed under the MIT License.
 // Copyright (c) 2018 the AppCore .NET project.
 
+using System;
 using AppCore.Commands;
 using AppCore.Commands.Metadata;
 using AppCore.Commands.Pipeline;
 using AppCore.DependencyInjection.Facilities;
+using AppCore.Diagnostics;
 
 // ReSharper disable once CheckNamespace
 namespace AppCore.DependencyInjection
 {
     /// <summary>
-    /// Provides the default <see cref="ICommandsFacility"/> implementation.
+    /// Provides the commands facility.
     /// </summary>
-    public class CommandsFacility : Facility, ICommandsFacility
+    public class CommandsFacility : Facility
     {
         /// <summary>
-        /// Gets or sets the lifetime when registering components.
+        /// Gets the lifetime of the command pipeline components.
         /// </summary>
-        public ComponentLifetime Lifetime { get; set; } = ComponentLifetime.Scoped;
+        public ComponentLifetime Lifetime { get; private set; } = ComponentLifetime.Scoped;
+
+        /// <summary>
+        /// Registers the <see cref="ICommandContextAccessor"/> with the DI container.
+        /// </summary>
+        /// <returns>The <see cref="CommandsFacility"/>.</returns>
+        public CommandsFacility WithEventContext()
+        {
+            ConfigureRegistry(
+                r => r.TryAdd(
+                    ComponentRegistration.Singleton<ICommandContextAccessor, CommandContextAccessor>()
+                )
+            );
+
+            return this;
+        }
+
+        /// <summary>
+        /// Configures the lifetime of command pipeline components.
+        /// </summary>
+        /// <param name="lifetime">The <see cref="ComponentLifetime"/>.</param>
+        /// <returns>The <see cref="CommandsFacility"/>.</returns>
+        public CommandsFacility WithLifetime(ComponentLifetime lifetime)
+        {
+            Lifetime = lifetime;
+            return this;
+        }
+
+        /// <summary>
+        /// Adds command handler to the container.
+        /// </summary>
+        /// <param name="handlerType">The type of the command handler.</param>
+        /// <returns>The <see cref="CommandsFacility"/>.</returns>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="handlerType"/> is <c>null</c>.</exception>
+        public CommandsFacility WithHandler(Type handlerType)
+        {
+            Ensure.Arg.NotNull(handlerType, nameof(handlerType));
+            ConfigureRegistry(
+                r => r.TryAddEnumerable(
+                    ComponentRegistration.Create(typeof(ICommandHandler<,>), handlerType, Lifetime)
+                )
+            );
+
+            return this;
+        }
+
+        /// <summary>
+        /// Adds command pre-handler to the container.
+        /// </summary>
+        /// <param name="handlerType">The type of the command handler.</param>
+        /// <returns>The <see cref="CommandsFacility"/>.</returns>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="handlerType"/> is <c>null</c>.</exception>
+        public CommandsFacility WithPreHandler(Type handlerType)
+        {
+            Ensure.Arg.NotNull(handlerType, nameof(handlerType));
+            ConfigureRegistry(
+                r => r.TryAddEnumerable(
+                    ComponentRegistration.Create(typeof(IPreCommandHandler<,>), handlerType, Lifetime)
+                )
+            );
+
+            return this;
+        }
+
+        /// <summary>
+        /// Adds command post-handler to the container.
+        /// </summary>
+        /// <param name="handlerType">The type of the command handler.</param>
+        /// <returns>The <see cref="CommandsFacility"/>.</returns>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="handlerType"/> is <c>null</c>.</exception>
+        public CommandsFacility WithPostHandler(Type handlerType)
+        {
+            Ensure.Arg.NotNull(handlerType, nameof(handlerType));
+            ConfigureRegistry(
+                r => r.TryAddEnumerable(
+                    ComponentRegistration.Create(typeof(IPostCommandHandler<,>), handlerType, Lifetime)
+                )
+            );
+
+            return this;
+        }
+
+        /// <summary>
+        /// Adds command pipeline behavior to the container.
+        /// </summary>
+        /// <param name="handlerType">The type of the command handler.</param>
+        /// <returns>The <see cref="CommandsFacility"/>.</returns>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="handlerType"/> is <c>null</c>.</exception>
+        public CommandsFacility WithBehavior(Type handlerType)
+        {
+            Ensure.Arg.NotNull(handlerType, nameof(handlerType));
+            ConfigureRegistry(
+                r => r.TryAddEnumerable(
+                    ComponentRegistration.Create(typeof(ICommandPipelineBehavior<,>), handlerType, Lifetime)
+                )
+            );
+
+            return this;
+        }
 
         /// <inheritdoc />
-        protected override void RegisterComponents(IComponentRegistry registry)
+        protected override void Build(IComponentRegistry registry)
         {
-            registry.Register<ICommandProcessor>()
-                    .Add<CommandProcessor>()
-                    .WithLifetime(Lifetime)
-                    .IfNoneRegistered();
+            base.Build(registry);
 
-            registry.Register<ICommandDescriptorFactory>()
-                    .Add<CommandDescriptorFactory>()
-                    .PerContainer()
-                    .IfNoneRegistered();
+            registry.TryAdd(
+                new[]
+                {
+                    ComponentRegistration.Create<ICommandProcessor, CommandProcessor>(Lifetime),
+                    ComponentRegistration.Singleton<ICommandDescriptorFactory, CommandDescriptorFactory>()
+                });
 
-            registry.Register<ICommandMetadataProvider>()
-                    .Add<CancelableCommandMetadataProvider>()
-                    .PerContainer()
-                    .IfNotRegistered();
-
-            registry.Register(typeof(ICommandPipelineBehavior<,>))
-                    .Add(typeof(CancelableCommandBehavior<,>))
-                    .PerContainer()
-                    .IfNotRegistered();
-
-            registry.Register(typeof(ICommandPipelineBehavior<,>))
-                    .Add(typeof(PreCommandHandlerBehavior<,>))
-                    .WithLifetime(Lifetime)
-                    .IfNotRegistered();
-
-            registry.Register(typeof(ICommandPipelineBehavior<,>))
-                    .Add(typeof(PostCommandHandlerBehavior<,>))
-                    .WithLifetime(Lifetime)
-                    .IfNotRegistered();
+            registry.TryAddEnumerable(
+                new[]
+                {
+                    ComponentRegistration.Singleton<ICommandMetadataProvider, CancelableCommandMetadataProvider>(),
+                    ComponentRegistration.Singleton(
+                        typeof(ICommandPipelineBehavior<,>),
+                        typeof(CancelableCommandBehavior<,>)),
+                    ComponentRegistration.Create(
+                        typeof(ICommandPipelineBehavior<,>),
+                        typeof(PreCommandHandlerBehavior<,>)),
+                    ComponentRegistration.Create(
+                        typeof(ICommandPipelineBehavior<,>),
+                        typeof(PostCommandHandlerBehavior<,>))
+                });
         }
     }
 }

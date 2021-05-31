@@ -1,11 +1,11 @@
-﻿// Licensed under the MIT License.
-// Copyright (c) 2018 the AppCore .NET project.
+// Licensed under the MIT License.
+// Copyright (c) 2018-2021 the AppCore .NET project.
 
 using System.Threading;
 using System.Threading.Tasks;
 using AppCore.Commands.Pipeline;
 using AppCore.Diagnostics;
-using AppCore.Validation;
+using AppCore.ModelValidation;
 
 namespace AppCore.Commands.Validation
 {
