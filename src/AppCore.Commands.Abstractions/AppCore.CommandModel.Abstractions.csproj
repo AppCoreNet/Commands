@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net461</TargetFrameworks>
-    <RootNamespace>AppCore.Commands</RootNamespace>
-    <Description>Provides AppCore .NET abstractions for commands.</Description>
+    <RootNamespace>AppCore.CommandModel</RootNamespace>
+    <Description>Provides AppCore .NET abstractions for the command model.</Description>
   </PropertyGroup>
 
   <ItemGroup>

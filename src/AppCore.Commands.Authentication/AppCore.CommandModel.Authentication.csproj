@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net461</TargetFrameworks>
-    <Description>Authentication support for AppCore .NET commands.</Description>
-    <RootNamespace>AppCore.Commands</RootNamespace>
+    <Description>Authentication support for AppCore .NET command model.</Description>
+    <RootNamespace>AppCore.CommandModel</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AppCore.Commands\AppCore.Commands.csproj" />
-    <ProjectReference Include="..\AppCore.Commands.Authentication.Abstractions\AppCore.Commands.Authentication.Abstractions.csproj" />
+    <ProjectReference Include="..\AppCore.Commands\AppCore.CommandModel.csproj" />
+    <ProjectReference Include="..\AppCore.Commands.Authentication.Abstractions\AppCore.CommandModel.Authentication.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>
