@@ -66,6 +66,25 @@ namespace AppCore.DependencyInjection
         }
 
         /// <summary>
+        /// Adds command handlers to the container.
+        /// </summary>
+        /// <param name="configure">The delegate used to configure the registration sources.</param>
+        /// <returns>The <see cref="CommandModelFacility"/>.</returns>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="configure"/> is <c>null</c>.</exception>
+        public CommandModelFacility WithHandlersFrom(Action<IComponentRegistrationSources> configure)
+        {
+            Ensure.Arg.NotNull(configure, nameof(configure));
+            ConfigureRegistry(r =>
+            {
+                var registrationSources = new ComponentRegistrationSources(typeof(ICommandHandler<,>), Lifetime);
+                configure(registrationSources);
+                r.TryAddEnumerable(registrationSources.GetRegistrations());
+            });
+
+            return this;
+        }
+
+        /// <summary>
         /// Adds command pre-handler to the container.
         /// </summary>
         /// <param name="handlerType">The type of the command handler.</param>
@@ -79,6 +98,25 @@ namespace AppCore.DependencyInjection
                     ComponentRegistration.Create(typeof(IPreCommandHandler<,>), handlerType, Lifetime)
                 )
             );
+
+            return this;
+        }
+
+        /// <summary>
+        /// Adds command pre-handlers to the container.
+        /// </summary>
+        /// <param name="configure">The delegate used to configure the registration sources.</param>
+        /// <returns>The <see cref="CommandModelFacility"/>.</returns>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="configure"/> is <c>null</c>.</exception>
+        public CommandModelFacility WithPreHandlersFrom(Action<IComponentRegistrationSources> configure)
+        {
+            Ensure.Arg.NotNull(configure, nameof(configure));
+            ConfigureRegistry(r =>
+            {
+                var registrationSources = new ComponentRegistrationSources(typeof(IPreCommandHandler<,>), Lifetime);
+                configure(registrationSources);
+                r.TryAddEnumerable(registrationSources.GetRegistrations());
+            });
 
             return this;
         }
@@ -102,6 +140,25 @@ namespace AppCore.DependencyInjection
         }
 
         /// <summary>
+        /// Adds command post-handlers to the container.
+        /// </summary>
+        /// <param name="configure">The delegate used to configure the registration sources.</param>
+        /// <returns>The <see cref="CommandModelFacility"/>.</returns>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="configure"/> is <c>null</c>.</exception>
+        public CommandModelFacility WithPostHandlersFrom(Action<IComponentRegistrationSources> configure)
+        {
+            Ensure.Arg.NotNull(configure, nameof(configure));
+            ConfigureRegistry(r =>
+            {
+                var registrationSources = new ComponentRegistrationSources(typeof(IPostCommandHandler<,>), Lifetime);
+                configure(registrationSources);
+                r.TryAddEnumerable(registrationSources.GetRegistrations());
+            });
+
+            return this;
+        }
+
+        /// <summary>
         /// Adds command pipeline behavior to the container.
         /// </summary>
         /// <param name="handlerType">The type of the command handler.</param>
@@ -115,6 +172,25 @@ namespace AppCore.DependencyInjection
                     ComponentRegistration.Create(typeof(ICommandPipelineBehavior<,>), handlerType, Lifetime)
                 )
             );
+
+            return this;
+        }
+
+        /// <summary>
+        /// Adds command pipeline behaviors to the container.
+        /// </summary>
+        /// <param name="configure">The delegate used to configure the registration sources.</param>
+        /// <returns>The <see cref="CommandModelFacility"/>.</returns>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="configure"/> is <c>null</c>.</exception>
+        public CommandModelFacility WithBehaviorsFrom(Action<IComponentRegistrationSources> configure)
+        {
+            Ensure.Arg.NotNull(configure, nameof(configure));
+            ConfigureRegistry(r =>
+            {
+                var registrationSources = new ComponentRegistrationSources(typeof(ICommandPipelineBehavior<,>), Lifetime);
+                configure(registrationSources);
+                r.TryAddEnumerable(registrationSources.GetRegistrations());
+            });
 
             return this;
         }
@@ -140,10 +216,12 @@ namespace AppCore.DependencyInjection
                         typeof(CancelableCommandBehavior<,>)),
                     ComponentRegistration.Create(
                         typeof(ICommandPipelineBehavior<,>),
-                        typeof(PreCommandHandlerBehavior<,>)),
+                        typeof(PreCommandHandlerBehavior<,>),
+                        Lifetime),
                     ComponentRegistration.Create(
                         typeof(ICommandPipelineBehavior<,>),
-                        typeof(PostCommandHandlerBehavior<,>))
+                        typeof(PostCommandHandlerBehavior<,>),
+                        Lifetime)
                 });
         }
     }
