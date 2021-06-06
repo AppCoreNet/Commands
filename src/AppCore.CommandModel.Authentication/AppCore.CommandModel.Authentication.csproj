@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AppCore.Commands\AppCore.CommandModel.csproj" />
-    <ProjectReference Include="..\AppCore.Commands.Authentication.Abstractions\AppCore.CommandModel.Authentication.Abstractions.csproj" />
+    <ProjectReference Include="..\AppCore.CommandModel\AppCore.CommandModel.csproj" />
+    <ProjectReference Include="..\AppCore.CommandModel.Authentication.Abstractions\AppCore.CommandModel.Authentication.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AppCore.Commands\AppCore.CommandModel.csproj" />
+    <ProjectReference Include="..\AppCore.CommandModel\AppCore.CommandModel.csproj" />
   </ItemGroup>
 
 </Project>

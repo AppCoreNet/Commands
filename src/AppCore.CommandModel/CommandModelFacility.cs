@@ -1,5 +1,5 @@
 // Licensed under the MIT License.
-// Copyright (c) 2018 the AppCore .NET project.
+// Copyright (c) 2018-2021 the AppCore .NET project.
 
 using System;
 using AppCore.CommandModel;
@@ -14,7 +14,7 @@ namespace AppCore.DependencyInjection
     /// <summary>
     /// Provides the commands facility.
     /// </summary>
-    public class CommandsFacility : Facility
+    public class CommandModelFacility : Facility
     {
         /// <summary>
         /// Gets the lifetime of the command pipeline components.
@@ -24,8 +24,8 @@ namespace AppCore.DependencyInjection
         /// <summary>
         /// Registers the <see cref="ICommandContextAccessor"/> with the DI container.
         /// </summary>
-        /// <returns>The <see cref="CommandsFacility"/>.</returns>
-        public CommandsFacility WithEventContext()
+        /// <returns>The <see cref="CommandModelFacility"/>.</returns>
+        public CommandModelFacility WithEventContext()
         {
             ConfigureRegistry(
                 r => r.TryAdd(
@@ -40,8 +40,8 @@ namespace AppCore.DependencyInjection
         /// Configures the lifetime of command pipeline components.
         /// </summary>
         /// <param name="lifetime">The <see cref="ComponentLifetime"/>.</param>
-        /// <returns>The <see cref="CommandsFacility"/>.</returns>
-        public CommandsFacility WithLifetime(ComponentLifetime lifetime)
+        /// <returns>The <see cref="CommandModelFacility"/>.</returns>
+        public CommandModelFacility WithLifetime(ComponentLifetime lifetime)
         {
             Lifetime = lifetime;
             return this;
@@ -51,9 +51,9 @@ namespace AppCore.DependencyInjection
         /// Adds command handler to the container.
         /// </summary>
         /// <param name="handlerType">The type of the command handler.</param>
-        /// <returns>The <see cref="CommandsFacility"/>.</returns>
+        /// <returns>The <see cref="CommandModelFacility"/>.</returns>
         /// <exception cref="ArgumentNullException">Argument <paramref name="handlerType"/> is <c>null</c>.</exception>
-        public CommandsFacility WithHandler(Type handlerType)
+        public CommandModelFacility WithHandler(Type handlerType)
         {
             Ensure.Arg.NotNull(handlerType, nameof(handlerType));
             ConfigureRegistry(
@@ -69,9 +69,9 @@ namespace AppCore.DependencyInjection
         /// Adds command pre-handler to the container.
         /// </summary>
         /// <param name="handlerType">The type of the command handler.</param>
-        /// <returns>The <see cref="CommandsFacility"/>.</returns>
+        /// <returns>The <see cref="CommandModelFacility"/>.</returns>
         /// <exception cref="ArgumentNullException">Argument <paramref name="handlerType"/> is <c>null</c>.</exception>
-        public CommandsFacility WithPreHandler(Type handlerType)
+        public CommandModelFacility WithPreHandler(Type handlerType)
         {
             Ensure.Arg.NotNull(handlerType, nameof(handlerType));
             ConfigureRegistry(
@@ -87,9 +87,9 @@ namespace AppCore.DependencyInjection
         /// Adds command post-handler to the container.
         /// </summary>
         /// <param name="handlerType">The type of the command handler.</param>
-        /// <returns>The <see cref="CommandsFacility"/>.</returns>
+        /// <returns>The <see cref="CommandModelFacility"/>.</returns>
         /// <exception cref="ArgumentNullException">Argument <paramref name="handlerType"/> is <c>null</c>.</exception>
-        public CommandsFacility WithPostHandler(Type handlerType)
+        public CommandModelFacility WithPostHandler(Type handlerType)
         {
             Ensure.Arg.NotNull(handlerType, nameof(handlerType));
             ConfigureRegistry(
@@ -105,9 +105,9 @@ namespace AppCore.DependencyInjection
         /// Adds command pipeline behavior to the container.
         /// </summary>
         /// <param name="handlerType">The type of the command handler.</param>
-        /// <returns>The <see cref="CommandsFacility"/>.</returns>
+        /// <returns>The <see cref="CommandModelFacility"/>.</returns>
         /// <exception cref="ArgumentNullException">Argument <paramref name="handlerType"/> is <c>null</c>.</exception>
-        public CommandsFacility WithBehavior(Type handlerType)
+        public CommandModelFacility WithBehavior(Type handlerType)
         {
             Ensure.Arg.NotNull(handlerType, nameof(handlerType));
             ConfigureRegistry(

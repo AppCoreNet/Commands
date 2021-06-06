@@ -7,19 +7,19 @@ using System;
 namespace AppCore.DependencyInjection
 {
     /// <summary>
-    /// Provides extension methods to configure the <see cref="CommandsFacility"/>.
+    /// Provides extension methods to configure the <see cref="CommandModelFacility"/>.
     /// </summary>
-    public static class CommandsRegistrationExtensions
+    public static class CommandModelRegistrationExtensions
     {
         /// <summary>
-        /// Adds the <see cref="CommandsFacility"/> to the DI container.
+        /// Adds the <see cref="CommandModelFacility"/> to the DI container.
         /// </summary>
         /// <param name="registry">The <see cref="IComponentRegistry"/>.</param>
         /// <param name="configure">The configure delegate.</param>
         /// <returns></returns>
         public static IComponentRegistry AddCommandModel(
             this IComponentRegistry registry,
-            Action<CommandsFacility> configure = null)
+            Action<CommandModelFacility> configure = null)
         {
             return registry.AddFacility(configure);
         }

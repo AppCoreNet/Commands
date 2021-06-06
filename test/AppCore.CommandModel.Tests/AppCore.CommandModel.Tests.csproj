@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\AppCore.Commands\AppCore.CommandModel.csproj" />
+    <ProjectReference Include="..\..\src\AppCore.CommandModel\AppCore.CommandModel.csproj" />
   </ItemGroup>
 
 </Project>
