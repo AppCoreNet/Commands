@@ -5,11 +5,11 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using AppCore.Commands.Pipeline;
+using AppCore.CommandModel.Pipeline;
 using AppCore.Diagnostics;
 using AppCore.Logging;
 
-namespace AppCore.Commands.Logging
+namespace AppCore.CommandModel.Logging
 {
     /// <summary>
     /// Provides a pipeline behavior which logs commands.

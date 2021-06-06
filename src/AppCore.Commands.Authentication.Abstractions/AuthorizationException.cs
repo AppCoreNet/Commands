@@ -1,6 +1,6 @@
 using System;
 
-namespace AppCore.Commands
+namespace AppCore.CommandModel
 {
     public class AuthorizationException : Exception
     {

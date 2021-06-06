@@ -2,10 +2,10 @@
 // Copyright (c) 2020 the AppCore .NET project.
 
 using System.Security.Principal;
-using AppCore.Commands.Pipeline;
+using AppCore.CommandModel.Pipeline;
 using AppCore.Diagnostics;
 
-namespace AppCore.Commands
+namespace AppCore.CommandModel
 {
     /// <summary>
     /// Provides authorization related extension methods for the <see cref="ICommandContext"/>.

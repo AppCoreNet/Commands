@@ -2,8 +2,6 @@
 // Copyright (c) 2018-2021 the AppCore .NET project.
 
 using System;
-using AppCore.Commands.Metadata;
-using AppCore.Commands.Pipeline;
 using AppCore.Diagnostics;
 
 // ReSharper disable once CheckNamespace

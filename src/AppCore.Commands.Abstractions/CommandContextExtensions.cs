@@ -4,7 +4,7 @@
 using System;
 using AppCore.Diagnostics;
 
-namespace AppCore.Commands
+namespace AppCore.CommandModel
 {
     /// <summary>
     /// Provides extension methods for the <see cref="ICommandContext"/>.

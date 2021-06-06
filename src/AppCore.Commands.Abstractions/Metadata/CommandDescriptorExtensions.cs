@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using AppCore.Diagnostics;
 
-namespace AppCore.Commands.Metadata
+namespace AppCore.CommandModel.Metadata
 {
     /// <summary>
     /// Provides extension methods for the <see cref="CommandDescriptor"/> type.

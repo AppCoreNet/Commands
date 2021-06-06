@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using AppCore.Diagnostics;
 
-namespace AppCore.Commands.Metadata
+namespace AppCore.CommandModel.Metadata
 {
     /// <summary>
     /// Creates new <see cref="CommandDescriptor"/> instances.

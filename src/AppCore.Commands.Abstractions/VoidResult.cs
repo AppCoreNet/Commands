@@ -3,7 +3,7 @@
 
 using System;
 
-namespace AppCore.Commands
+namespace AppCore.CommandModel
 {
     /// <summary>
     /// Represents a <see cref="Void"/> command result.

@@ -3,11 +3,11 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using AppCore.Commands.Pipeline;
+using AppCore.CommandModel.Pipeline;
 using AppCore.Diagnostics;
 using AppCore.ModelValidation;
 
-namespace AppCore.Commands.Validation
+namespace AppCore.CommandModel.Validation
 {
     /// <summary>
     /// Provides a behavior for command validation.

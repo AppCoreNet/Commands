@@ -3,9 +3,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using AppCore.Commands.Metadata;
+using AppCore.CommandModel.Metadata;
 
-namespace AppCore.Commands.Pipeline
+namespace AppCore.CommandModel.Pipeline
 {
     internal interface ICommandPipeline<TResult>
     {

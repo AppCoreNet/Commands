@@ -3,7 +3,7 @@
 
 using System.Security.Principal;
 
-namespace AppCore.Commands.Pipeline
+namespace AppCore.CommandModel.Pipeline
 {
     /// <summary>
     /// Provides the command authentication feature.

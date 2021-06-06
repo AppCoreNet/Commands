@@ -5,7 +5,7 @@ using System.Threading;
 using FluentAssertions;
 using Xunit;
 
-namespace AppCore.Commands.Pipeline
+namespace AppCore.CommandModel.Pipeline
 {
     public class CancelableCommandFeatureTests
     {

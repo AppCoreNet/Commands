@@ -1,10 +1,10 @@
 ﻿// Licensed under the MIT License.
 // Copyright (c) 2018 the AppCore .NET project.
 
-using AppCore.Commands.Pipeline;
+using AppCore.CommandModel.Pipeline;
 using AppCore.Diagnostics;
 
-namespace AppCore.Commands
+namespace AppCore.CommandModel
 {
     /// <summary>
     /// Provides extension methods for the <see cref="ICommandContext"/> type.

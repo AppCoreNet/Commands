@@ -6,10 +6,10 @@ using System.Linq;
 using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
-using AppCore.Commands.Metadata;
+using AppCore.CommandModel.Metadata;
 using AppCore.Diagnostics;
 
-namespace AppCore.Commands.Pipeline
+namespace AppCore.CommandModel.Pipeline
 {
     internal class AuthenticatedCommandBehavior
     {

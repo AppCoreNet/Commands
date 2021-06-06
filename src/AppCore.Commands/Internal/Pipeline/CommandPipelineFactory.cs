@@ -5,7 +5,7 @@ using System;
 using System.Collections.Concurrent;
 using AppCore.DependencyInjection;
 
-namespace AppCore.Commands.Pipeline
+namespace AppCore.CommandModel.Pipeline
 {
     internal static class CommandPipelineFactory
     {

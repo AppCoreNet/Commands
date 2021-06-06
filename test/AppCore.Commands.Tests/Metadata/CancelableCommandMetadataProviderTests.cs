@@ -2,11 +2,11 @@
 // Copyright (c) 2018 the AppCore .NET project.
 
 using System.Collections.Generic;
-using AppCore.Commands.Pipeline;
+using AppCore.CommandModel.Pipeline;
 using FluentAssertions;
 using Xunit;
 
-namespace AppCore.Commands.Metadata
+namespace AppCore.CommandModel.Metadata
 {
     public class CancelableCommandMetadataProviderTests
     {

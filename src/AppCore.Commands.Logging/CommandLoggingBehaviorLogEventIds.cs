@@ -3,7 +3,7 @@
 
 using AppCore.Logging;
 
-namespace AppCore.Commands.Logging
+namespace AppCore.CommandModel.Logging
 {
     /// <summary>
     /// Provides <see cref="LogEventId"/>'s for logged commands.

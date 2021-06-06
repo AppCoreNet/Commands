@@ -3,11 +3,11 @@
 
 using System;
 using System.Collections.Generic;
-using AppCore.Commands.Metadata;
+using AppCore.CommandModel.Metadata;
 using FluentAssertions;
 using Xunit;
 
-namespace AppCore.Commands
+namespace AppCore.CommandModel
 {
     public class CommandContextTests
     {

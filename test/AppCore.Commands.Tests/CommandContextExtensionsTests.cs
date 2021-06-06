@@ -7,7 +7,7 @@ using FluentAssertions;
 using NSubstitute;
 using Xunit;
 
-namespace AppCore.Commands
+namespace AppCore.CommandModel
 {
     public class CommandContextExtensionsTests
     {

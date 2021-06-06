@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using AppCore.Diagnostics;
 
-namespace AppCore.Commands.Metadata
+namespace AppCore.CommandModel.Metadata
 {
     /// <summary>
     /// Describes a command type.

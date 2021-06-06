@@ -6,15 +6,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AppCore.Commands.Metadata;
-using AppCore.Commands.Pipeline;
+using AppCore.CommandModel.Metadata;
+using AppCore.CommandModel.Pipeline;
 using AppCore.DependencyInjection;
 using FluentAssertions;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using Xunit;
 
-namespace AppCore.Commands
+namespace AppCore.CommandModel
 {
     public class CommandProcessorTests
     {

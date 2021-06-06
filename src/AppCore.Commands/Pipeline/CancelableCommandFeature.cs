@@ -4,7 +4,7 @@
 using System.Threading;
 using AppCore.Diagnostics;
 
-namespace AppCore.Commands.Pipeline
+namespace AppCore.CommandModel.Pipeline
 {
     /// <summary>
     /// Implements cancellation support for the <see cref="ICommandContext"/>.

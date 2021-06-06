@@ -2,9 +2,9 @@
 // Copyright (c) 2018 the AppCore .NET project.
 
 using System;
-using AppCore.Commands;
-using AppCore.Commands.Metadata;
-using AppCore.Commands.Pipeline;
+using AppCore.CommandModel;
+using AppCore.CommandModel.Metadata;
+using AppCore.CommandModel.Pipeline;
 using AppCore.DependencyInjection.Facilities;
 using AppCore.Diagnostics;
 

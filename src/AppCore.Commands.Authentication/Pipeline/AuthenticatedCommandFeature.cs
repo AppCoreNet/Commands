@@ -4,7 +4,7 @@
 using System.Security.Principal;
 using AppCore.Diagnostics;
 
-namespace AppCore.Commands.Pipeline
+namespace AppCore.CommandModel.Pipeline
 {
     /// <summary>
     /// Implements command authentication support.

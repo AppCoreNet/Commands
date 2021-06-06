@@ -4,12 +4,12 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using AppCore.Commands.Metadata;
+using AppCore.CommandModel.Metadata;
 using FluentAssertions;
 using NSubstitute;
 using Xunit;
 
-namespace AppCore.Commands.Pipeline
+namespace AppCore.CommandModel.Pipeline
 {
     public class PostCommandHandlerBehaviorTests
     {

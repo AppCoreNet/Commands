@@ -7,10 +7,10 @@ using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Threading;
 using System.Threading.Tasks;
-using AppCore.Commands.Metadata;
+using AppCore.CommandModel.Metadata;
 using AppCore.DependencyInjection;
 
-namespace AppCore.Commands.Pipeline
+namespace AppCore.CommandModel.Pipeline
 {
     internal class CommandPipeline<TCommand, TResult> : ICommandPipeline<TResult>
         where TCommand : ICommand<TResult>

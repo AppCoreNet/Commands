@@ -3,12 +3,12 @@
 
 using System;
 using System.Collections.Generic;
-using AppCore.Commands.Pipeline;
+using AppCore.CommandModel.Pipeline;
 using FluentAssertions;
 using NSubstitute;
 using Xunit;
 
-namespace AppCore.Commands
+namespace AppCore.CommandModel
 {
     public class CancelableCommandContextExtensionsTests
     {

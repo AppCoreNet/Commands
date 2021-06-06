@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AppCore.Diagnostics;
 
-namespace AppCore.Commands.Pipeline
+namespace AppCore.CommandModel.Pipeline
 {
     /// <summary>
     /// Pipeline behavior which invokes <see cref="IPostCommandHandler{TCommand,TResult}"/>s when the

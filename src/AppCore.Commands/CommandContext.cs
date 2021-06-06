@@ -3,10 +3,10 @@
 
 using System;
 using System.Collections.Generic;
-using AppCore.Commands.Metadata;
+using AppCore.CommandModel.Metadata;
 using AppCore.Diagnostics;
 
-namespace AppCore.Commands
+namespace AppCore.CommandModel
 {
     /// <summary>
     /// Default implementation of the <see cref="ICommandContext{TCommand,TResult}"/> interface.

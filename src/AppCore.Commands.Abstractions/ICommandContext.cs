@@ -3,9 +3,9 @@
 
 using System;
 using System.Collections.Generic;
-using AppCore.Commands.Metadata;
+using AppCore.CommandModel.Metadata;
 
-namespace AppCore.Commands
+namespace AppCore.CommandModel
 {
     /// <summary>
     /// Represents the context when processing a command.

@@ -3,7 +3,7 @@
 
 using System.Security.Principal;
 
-namespace AppCore.Commands.Pipeline
+namespace AppCore.CommandModel.Pipeline
 {
     /// <summary>
     /// Represents a provider to get the <see cref="IPrincipal"/> which invokes the current command.

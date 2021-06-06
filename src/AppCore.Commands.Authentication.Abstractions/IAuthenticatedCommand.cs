@@ -3,7 +3,7 @@
 
 using System.Security.Principal;
 
-namespace AppCore.Commands
+namespace AppCore.CommandModel
 {
     /// <summary>
     /// Represents a command which requires the current principal.

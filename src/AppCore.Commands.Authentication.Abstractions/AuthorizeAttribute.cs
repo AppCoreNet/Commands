@@ -3,7 +3,7 @@
 
 using System;
 
-namespace AppCore.Commands
+namespace AppCore.CommandModel
 {
     /// <summary>
     /// When applied to a command type, requires authorization of the user.

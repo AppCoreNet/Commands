@@ -4,7 +4,7 @@
 using System;
 using AppCore.Logging;
 
-namespace AppCore.Commands.Logging
+namespace AppCore.CommandModel.Logging
 {
     internal static class CommandLoggingExtensions
     {

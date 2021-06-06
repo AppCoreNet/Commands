@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using FluentAssertions;
 using Xunit;
 
-namespace AppCore.Commands.Metadata
+namespace AppCore.CommandModel.Metadata
 {
     public class CommandDescriptorExtensionsTests
     {
