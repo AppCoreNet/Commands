@@ -7,6 +7,8 @@ using AppCore.CommandModel.Metadata;
 using AppCore.CommandModel.Pipeline;
 using AppCore.DependencyInjection.Facilities;
 using AppCore.Diagnostics;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 // ReSharper disable once CheckNamespace
 namespace AppCore.DependencyInjection
@@ -19,7 +21,7 @@ namespace AppCore.DependencyInjection
         /// <summary>
         /// Gets the lifetime of the command pipeline components.
         /// </summary>
-        public ComponentLifetime Lifetime { get; private set; } = ComponentLifetime.Scoped;
+        public ServiceLifetime Lifetime { get; private set; } = ServiceLifetime.Scoped;
 
         /// <summary>
         /// Registers the <see cref="ICommandContextAccessor"/> with the DI container.
@@ -27,21 +29,16 @@ namespace AppCore.DependencyInjection
         /// <returns>The <see cref="CommandModelFacility"/>.</returns>
         public CommandModelFacility WithEventContext()
         {
-            ConfigureRegistry(
-                r => r.TryAdd(
-                    ComponentRegistration.Singleton<ICommandContextAccessor, CommandContextAccessor>()
-                )
-            );
-
+            ConfigureServices(services => services.TryAddSingleton<ICommandContextAccessor, CommandContextAccessor>());
             return this;
         }
 
         /// <summary>
         /// Configures the lifetime of command pipeline components.
         /// </summary>
-        /// <param name="lifetime">The <see cref="ComponentLifetime"/>.</param>
+        /// <param name="lifetime">The <see cref="ServiceLifetime"/>.</param>
         /// <returns>The <see cref="CommandModelFacility"/>.</returns>
-        public CommandModelFacility WithLifetime(ComponentLifetime lifetime)
+        public CommandModelFacility WithLifetime(ServiceLifetime lifetime)
         {
             Lifetime = lifetime;
             return this;
@@ -56,11 +53,9 @@ namespace AppCore.DependencyInjection
         public CommandModelFacility WithHandler(Type handlerType)
         {
             Ensure.Arg.NotNull(handlerType, nameof(handlerType));
-            ConfigureRegistry(
-                r => r.TryAddEnumerable(
-                    ComponentRegistration.Create(typeof(ICommandHandler<,>), handlerType, Lifetime)
-                )
-            );
+            ConfigureServices(
+                services => services.TryAddEnumerable(
+                    ServiceDescriptor.Describe(typeof(ICommandHandler<,>), handlerType, Lifetime)));
 
             return this;
         }
@@ -71,14 +66,18 @@ namespace AppCore.DependencyInjection
         /// <param name="configure">The delegate used to configure the registration sources.</param>
         /// <returns>The <see cref="CommandModelFacility"/>.</returns>
         /// <exception cref="ArgumentNullException">Argument <paramref name="configure"/> is <c>null</c>.</exception>
-        public CommandModelFacility WithHandlersFrom(Action<IComponentRegistrationSources> configure)
+        public CommandModelFacility WithHandlersFrom(Action<IServiceDescriptorReflectionBuilder> configure)
         {
             Ensure.Arg.NotNull(configure, nameof(configure));
-            ConfigureRegistry(r =>
+            ConfigureServices(services =>
             {
-                var registrationSources = new ComponentRegistrationSources(typeof(ICommandHandler<,>), Lifetime);
-                configure(registrationSources);
-                r.TryAddEnumerable(registrationSources.GetRegistrations());
+                services.TryAddEnumerableFrom(
+                    typeof(ICommandHandler<,>),
+                    builder =>
+                    {
+                        builder.WithDefaultLifetime(Lifetime);
+                        configure(builder);
+                    });
             });
 
             return this;
@@ -93,11 +92,9 @@ namespace AppCore.DependencyInjection
         public CommandModelFacility WithPreHandler(Type handlerType)
         {
             Ensure.Arg.NotNull(handlerType, nameof(handlerType));
-            ConfigureRegistry(
-                r => r.TryAddEnumerable(
-                    ComponentRegistration.Create(typeof(IPreCommandHandler<,>), handlerType, Lifetime)
-                )
-            );
+            ConfigureServices(
+                services => services.TryAddEnumerable(
+                    ServiceDescriptor.Describe(typeof(IPreCommandHandler<,>), handlerType, Lifetime)));
 
             return this;
         }
@@ -108,14 +105,18 @@ namespace AppCore.DependencyInjection
         /// <param name="configure">The delegate used to configure the registration sources.</param>
         /// <returns>The <see cref="CommandModelFacility"/>.</returns>
         /// <exception cref="ArgumentNullException">Argument <paramref name="configure"/> is <c>null</c>.</exception>
-        public CommandModelFacility WithPreHandlersFrom(Action<IComponentRegistrationSources> configure)
+        public CommandModelFacility WithPreHandlersFrom(Action<IServiceDescriptorReflectionBuilder> configure)
         {
             Ensure.Arg.NotNull(configure, nameof(configure));
-            ConfigureRegistry(r =>
+            ConfigureServices(services =>
             {
-                var registrationSources = new ComponentRegistrationSources(typeof(IPreCommandHandler<,>), Lifetime);
-                configure(registrationSources);
-                r.TryAddEnumerable(registrationSources.GetRegistrations());
+                services.TryAddEnumerableFrom(
+                    typeof(IPreCommandHandler<,>),
+                    builder =>
+                    {
+                        builder.WithDefaultLifetime(Lifetime);
+                        configure(builder);
+                    });
             });
 
             return this;
@@ -130,11 +131,9 @@ namespace AppCore.DependencyInjection
         public CommandModelFacility WithPostHandler(Type handlerType)
         {
             Ensure.Arg.NotNull(handlerType, nameof(handlerType));
-            ConfigureRegistry(
-                r => r.TryAddEnumerable(
-                    ComponentRegistration.Create(typeof(IPostCommandHandler<,>), handlerType, Lifetime)
-                )
-            );
+            ConfigureServices(
+                services => services.TryAddEnumerable(
+                    ServiceDescriptor.Describe(typeof(IPostCommandHandler<,>), handlerType, Lifetime)));
 
             return this;
         }
@@ -145,14 +144,18 @@ namespace AppCore.DependencyInjection
         /// <param name="configure">The delegate used to configure the registration sources.</param>
         /// <returns>The <see cref="CommandModelFacility"/>.</returns>
         /// <exception cref="ArgumentNullException">Argument <paramref name="configure"/> is <c>null</c>.</exception>
-        public CommandModelFacility WithPostHandlersFrom(Action<IComponentRegistrationSources> configure)
+        public CommandModelFacility WithPostHandlersFrom(Action<IServiceDescriptorReflectionBuilder> configure)
         {
             Ensure.Arg.NotNull(configure, nameof(configure));
-            ConfigureRegistry(r =>
+            ConfigureServices(services =>
             {
-                var registrationSources = new ComponentRegistrationSources(typeof(IPostCommandHandler<,>), Lifetime);
-                configure(registrationSources);
-                r.TryAddEnumerable(registrationSources.GetRegistrations());
+                services.TryAddEnumerableFrom(
+                    typeof(IPostCommandHandler<,>),
+                    builder =>
+                    {
+                        builder.WithDefaultLifetime(Lifetime);
+                        configure(builder);
+                    });
             });
 
             return this;
@@ -167,11 +170,9 @@ namespace AppCore.DependencyInjection
         public CommandModelFacility WithBehavior(Type handlerType)
         {
             Ensure.Arg.NotNull(handlerType, nameof(handlerType));
-            ConfigureRegistry(
-                r => r.TryAddEnumerable(
-                    ComponentRegistration.Create(typeof(ICommandPipelineBehavior<,>), handlerType, Lifetime)
-                )
-            );
+            ConfigureServices(
+                services => services.TryAddEnumerable(
+                    ServiceDescriptor.Describe(typeof(ICommandPipelineBehavior<,>), handlerType, Lifetime)));
 
             return this;
         }
@@ -182,43 +183,47 @@ namespace AppCore.DependencyInjection
         /// <param name="configure">The delegate used to configure the registration sources.</param>
         /// <returns>The <see cref="CommandModelFacility"/>.</returns>
         /// <exception cref="ArgumentNullException">Argument <paramref name="configure"/> is <c>null</c>.</exception>
-        public CommandModelFacility WithBehaviorsFrom(Action<IComponentRegistrationSources> configure)
+        public CommandModelFacility WithBehaviorsFrom(Action<IServiceDescriptorReflectionBuilder> configure)
         {
             Ensure.Arg.NotNull(configure, nameof(configure));
-            ConfigureRegistry(r =>
+            ConfigureServices(services =>
             {
-                var registrationSources = new ComponentRegistrationSources(typeof(ICommandPipelineBehavior<,>), Lifetime);
-                configure(registrationSources);
-                r.TryAddEnumerable(registrationSources.GetRegistrations());
+                services.TryAddEnumerableFrom(
+                    typeof(ICommandPipelineBehavior<,>),
+                    builder =>
+                    {
+                        builder.WithDefaultLifetime(Lifetime);
+                        configure(builder);
+                    });
             });
 
             return this;
         }
 
         /// <inheritdoc />
-        protected override void Build(IComponentRegistry registry)
+        protected override void ConfigureServices(IServiceCollection services)
         {
-            base.Build(registry);
+            base.ConfigureServices(services);
 
-            registry.TryAdd(
+            services.TryAdd(
                 new[]
                 {
-                    ComponentRegistration.Create<ICommandProcessor, CommandProcessor>(Lifetime),
-                    ComponentRegistration.Singleton<ICommandDescriptorFactory, CommandDescriptorFactory>()
+                    ServiceDescriptor.Describe(typeof(ICommandProcessor), typeof(CommandProcessor), Lifetime),
+                    ServiceDescriptor.Singleton<ICommandDescriptorFactory, CommandDescriptorFactory>()
                 });
 
-            registry.TryAddEnumerable(
+            services.TryAddEnumerable(
                 new[]
                 {
-                    ComponentRegistration.Singleton<ICommandMetadataProvider, CancelableCommandMetadataProvider>(),
-                    ComponentRegistration.Singleton(
+                    ServiceDescriptor.Singleton<ICommandMetadataProvider, CancelableCommandMetadataProvider>(),
+                    ServiceDescriptor.Singleton(
                         typeof(ICommandPipelineBehavior<,>),
                         typeof(CancelableCommandBehavior<,>)),
-                    ComponentRegistration.Create(
+                    ServiceDescriptor.Describe(
                         typeof(ICommandPipelineBehavior<,>),
                         typeof(PreCommandHandlerBehavior<,>),
                         Lifetime),
-                    ComponentRegistration.Create(
+                    ServiceDescriptor.Describe(
                         typeof(ICommandPipelineBehavior<,>),
                         typeof(PostCommandHandlerBehavior<,>),
                         Lifetime)

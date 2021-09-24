@@ -2,8 +2,6 @@
 // Copyright (c) 2018-2021 the AppCore .NET project.
 
 using System;
-using AppCore.CommandModel.Logging;
-using AppCore.CommandModel.Pipeline;
 using AppCore.Diagnostics;
 
 // ReSharper disable once CheckNamespace
@@ -21,18 +19,7 @@ namespace AppCore.DependencyInjection
         public static CommandModelFacility UseLogging(this CommandModelFacility facility)
         {
             Ensure.Arg.NotNull(facility, nameof(facility));
-
-            facility.ConfigureRegistry(
-                r =>
-                {
-                    r.AddLogging();
-
-                    r.TryAddEnumerable(
-                        ComponentRegistration.Create(
-                            typeof(ICommandPipelineBehavior<,>),
-                            typeof(CommandLoggingBehavior<,>)));
-                });
-
+            facility.AddExtension<LoggingCommandModelFacilityExtension>();
             return facility;
         }
     }

@@ -1,4 +1,4 @@
-﻿// Licensed under the MIT License.
+// Licensed under the MIT License.
 // Copyright (c) 2018 the AppCore .NET project.
 
 using System;
@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using AppCore.CommandModel.Metadata;
 using AppCore.CommandModel.Pipeline;
 using AppCore.DependencyInjection;
+using AppCore.DependencyInjection.Activator;
 using AppCore.Diagnostics;
 
 namespace AppCore.CommandModel
@@ -16,28 +17,28 @@ namespace AppCore.CommandModel
     /// </summary>
     public class CommandProcessor : ICommandProcessor
     {
+        private readonly IActivator _activator;
         private readonly ICommandDescriptorFactory _commandDescriptorFactory;
         private readonly ICommandContextAccessor _commandContextAccessor;
-        private readonly IContainer _container;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandProcessor"/> class.
         /// </summary>
-        /// <param name="container">The <see cref="IContainer"/> used to resolve handlers and behaviors.</param>
+        /// <param name="activator">The <see cref="IActivator"/> used to resolve handlers and behaviors.</param>
         /// <param name="commandDescriptorFactory">The factory for <see cref="CommandDescriptor"/>'s.</param>
         /// <param name="commandContextAccessor">The accessor for the current <see cref="ICommandContext"/>.</param>
-        /// <exception cref="ArgumentNullException">Argument <paramref name="container"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Argument <paramref name="activator"/> is <c>null</c>.</exception>
         public CommandProcessor(
-            IContainer container,
+            IActivator activator,
             ICommandDescriptorFactory commandDescriptorFactory,
             ICommandContextAccessor commandContextAccessor = null)
         {
             Ensure.Arg.NotNull(commandDescriptorFactory, nameof(commandDescriptorFactory));
-            Ensure.Arg.NotNull(container, nameof(container));
+            Ensure.Arg.NotNull(activator, nameof(activator));
 
             _commandDescriptorFactory = commandDescriptorFactory;
             _commandContextAccessor = commandContextAccessor;
-            _container = container;
+            _activator = activator;
         }
 
         /// <inheritdoc />
@@ -48,7 +49,7 @@ namespace AppCore.CommandModel
             Type commandType = command.GetType();
 
             var pipeline =
-                (ICommandPipeline<TResult>) CommandPipelineFactory.CreateCommandPipeline(commandType, _container);
+                (ICommandPipeline<TResult>) CommandPipelineFactory.CreateCommandPipeline(commandType, _activator);
 
             CommandDescriptor commandDescriptor = _commandDescriptorFactory.CreateDescriptor(commandType);
             ICommandContext commandContext = pipeline.CreateCommandContext(commandDescriptor, command);

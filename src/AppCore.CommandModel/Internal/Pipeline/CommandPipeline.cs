@@ -8,7 +8,6 @@ using System.Runtime.ExceptionServices;
 using System.Threading;
 using System.Threading.Tasks;
 using AppCore.CommandModel.Metadata;
-using AppCore.DependencyInjection;
 
 namespace AppCore.CommandModel.Pipeline
 {
@@ -18,10 +17,10 @@ namespace AppCore.CommandModel.Pipeline
         private readonly IEnumerable<ICommandPipelineBehavior<TCommand, TResult>> _behaviors;
         private readonly ICommandHandler<TCommand, TResult> _handler;
 
-        public CommandPipeline(IContainer container)
+        public CommandPipeline(IEnumerable<ICommandPipelineBehavior<TCommand, TResult>> behaviors, ICommandHandler<TCommand, TResult> handler)
         {
-            _behaviors = container.ResolveAll<ICommandPipelineBehavior<TCommand, TResult>>();
-            _handler = container.Resolve<ICommandHandler<TCommand, TResult>>();
+            _behaviors = behaviors;
+            _handler = handler;
         }
 
         public ICommandContext CreateCommandContext(CommandDescriptor descriptor, ICommand<TResult> command)

@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AppCore.CommandModel.Metadata;
 using AppCore.CommandModel.Pipeline;
-using AppCore.DependencyInjection;
+using AppCore.DependencyInjection.Activator;
 using FluentAssertions;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
@@ -20,7 +20,7 @@ namespace AppCore.CommandModel
     {
         private readonly ICommandDescriptorFactory _commandDescriptorFactory;
         private readonly ICommandContextAccessor _commandContextAccessor;
-        private readonly IContainer _container;
+        private readonly IServiceProvider _serviceProvider;
         private readonly CommandProcessor _processor;
         private ICommandHandler<TestCommand, TestResult> _commandHandler;
         private IEnumerable<ICommandPipelineBehavior<TestCommand, TestResult>> _commandBehaviors;
@@ -37,14 +37,14 @@ namespace AppCore.CommandModel
 
             _commandContextAccessor = Substitute.For<ICommandContextAccessor>();
 
-            _container = Substitute.For<IContainer>();
-            _container.Resolve(Arg.Is(typeof(ICommandHandler<TestCommand, TestResult>)))
+            _serviceProvider = Substitute.For<IServiceProvider>();
+            _serviceProvider.GetService(Arg.Is(typeof(ICommandHandler<TestCommand, TestResult>)))
                       .Returns(_ => _commandHandler);
 
-            _container.Resolve(Arg.Is(typeof(IEnumerable<ICommandPipelineBehavior<TestCommand, TestResult>>)))
+            _serviceProvider.GetService(Arg.Is(typeof(IEnumerable<ICommandPipelineBehavior<TestCommand, TestResult>>)))
                       .Returns(_ => _commandBehaviors);
 
-            _processor = new CommandProcessor(_container, _commandDescriptorFactory, _commandContextAccessor);
+            _processor = new CommandProcessor(new ServiceProviderActivator(_serviceProvider), _commandDescriptorFactory, _commandContextAccessor);
         }
 
         [Fact]

@@ -1,9 +1,9 @@
-﻿// Licensed under the MIT License.
+// Licensed under the MIT License.
 // Copyright (c) 2018 the AppCore .NET project.
 
 using System;
 using System.Collections.Concurrent;
-using AppCore.DependencyInjection;
+using AppCore.DependencyInjection.Activator;
 
 namespace AppCore.CommandModel.Pipeline
 {
@@ -23,10 +23,10 @@ namespace AppCore.CommandModel.Pipeline
             });
         }
 
-        public static object CreateCommandPipeline(Type commandType, IContainer container)
+        public static object CreateCommandPipeline(Type commandType, IActivator activator)
         {
             Type commandPipelineType = GetCommandPipelineType(commandType);
-            return commandPipelineType.CreateInstance(container);
+            return activator.CreateInstance(commandPipelineType);
         }
     }
 }

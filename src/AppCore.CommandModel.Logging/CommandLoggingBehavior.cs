@@ -1,4 +1,4 @@
-﻿// Licensed under the MIT License.
+// Licensed under the MIT License.
 // Copyright (c) 2018 the AppCore .NET project.
 
 using System;
@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AppCore.CommandModel.Pipeline;
 using AppCore.Diagnostics;
-using AppCore.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace AppCore.CommandModel.Logging
 {
