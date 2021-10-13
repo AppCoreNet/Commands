@@ -1,10 +1,10 @@
 Commands
 --------
 
-[![Build Status](https://dev.azure.com/AppCoreNet/Commands/_apis/build/status/AppCoreNet.Commands%20CI?branchName=dev)](https://dev.azure.com/AppCoreNet/Commands/_build/latest?definitionId=6&branchName=dev)
-![Azure DevOps tests (compact)](https://img.shields.io/azure-devops/tests/AppCoreNet/Commands/6?compact_message)
-![Azure DevOps coverage (branch)](https://img.shields.io/azure-devops/coverage/AppCoreNet/Commands/6/dev)
-![Nuget](https://img.shields.io/nuget/v/AppCore.Commands.Abstractions)
+[![Build Status](https://dev.azure.com/AppCoreNet/CommandModel/_apis/build/status/AppCoreNet.CommandModel%20CI?branchName=dev)](https://dev.azure.com/AppCoreNet/CommandModel/_build/latest?definitionId=6&branchName=dev)
+![Azure DevOps tests (compact)](https://img.shields.io/azure-devops/tests/AppCoreNet/CommandModel/6?compact_message)
+![Azure DevOps coverage (branch)](https://img.shields.io/azure-devops/coverage/AppCoreNet/CommandModel/6/dev)
+![Nuget](https://img.shields.io/nuget/v/AppCore.CommandModel.Abstractions)
 
 This repository includes projects containing abstractions and implementations of the command model.
 
