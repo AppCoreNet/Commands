@@ -1,12 +1,12 @@
 Commands
 --------
 
-[![Build Status](https://dev.azure.com/AppCoreNet/Commands/_apis/build/status/AppCoreNet.Commands%20CI?branchName=dev)](https://dev.azure.com/AppCoreNet/Commands/_build/latest?definitionId=6&branchName=dev)
-![Azure DevOps tests (compact)](https://img.shields.io/azure-devops/tests/AppCoreNet/Commands/6?compact_message)
-![Azure DevOps coverage (branch)](https://img.shields.io/azure-devops/coverage/AppCoreNet/Commands/6/dev)
-![Nuget](https://img.shields.io/nuget/v/AppCore.Commands.Abstractions)
+[![Build Status](https://dev.azure.com/AppCoreNet/CommandModel/_apis/build/status/AppCoreNet.CommandModel%20CI?branchName=dev)](https://dev.azure.com/AppCoreNet/CommandModel/_build/latest?definitionId=6&branchName=dev)
+![Azure DevOps tests (compact)](https://img.shields.io/azure-devops/tests/AppCoreNet/CommandModel/6?compact_message)
+![Azure DevOps coverage (branch)](https://img.shields.io/azure-devops/coverage/AppCoreNet/CommandModel/6/dev)
+![Nuget](https://img.shields.io/nuget/v/AppCore.CommandModel.Abstractions)
 
-This repository includes projects containing abstractions and implementations of the command framework.
+This repository includes projects containing abstractions and implementations of the command model.
 
 All artifacts are licensed under the [MIT license](LICENSE). You are free to use them in open-source or commercial projects as long
 as you keep the copyright notice intact when redistributing or otherwise reusing our artifacts.
@@ -15,12 +15,12 @@ as you keep the copyright notice intact when redistributing or otherwise reusing
 
 Latest development packages can be found on [MyGet](https://www.myget.org/gallery/appcorenet).
 
-Package                            | Description
------------------------------------|-----------------------------------------------------------------------------
-`AppCore.Commands.Abstractions`    | Provides the public API of the command framework.
-`AppCore.Commands`                 | Provides command framework default implementations.
-`AppCore.Commands.Validation`      | Adds validation for commands.
-`AppCore.Commands.Logging`         | Adds logging of commands.
+Package                              | Description
+-------------------------------------|-----------------------------------------------------------------------------
+`AppCore.CommandModel.Abstractions`  | Provides the public API of the command framework.
+`AppCore.CommandModel`               | Provides command framework default implementations.
+`AppCore.CommandModel.Validation`    | Adds validation for commands.
+`AppCore.CommandModel.Logging`       | Adds logging of commands.
 
 ## Contributing
 
