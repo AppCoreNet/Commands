@@ -15,6 +15,6 @@ namespace AppCore.CommandModel.Pipeline
         /// </summary>
         /// <param name="context">The <see cref="ICommandContext"/>.</param>
         /// <returns>The current <see cref="IPrincipal"/>.</returns>
-        IPrincipal GetUser(ICommandContext context);
+        IPrincipal? GetUser(ICommandContext context);
     }
 }

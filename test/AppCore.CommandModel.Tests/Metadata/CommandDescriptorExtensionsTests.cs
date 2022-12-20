@@ -34,7 +34,7 @@ namespace AppCore.CommandModel.Metadata
             var metadata = new Dictionary<string, object>();
             var descriptor = new CommandDescriptor(typeof(TestCommand), metadata);
 
-            descriptor.TryGetMetadata(testKey, out int value)
+            descriptor.TryGetMetadata(testKey, out int _)
                       .Should()
                       .BeFalse();
         }
@@ -50,7 +50,7 @@ namespace AppCore.CommandModel.Metadata
 
             Action action = () =>
             {
-                descriptor.TryGetMetadata(testKey, out string wrongTypeValue);
+                descriptor.TryGetMetadata(testKey, out string? _);
             };
 
             action.Should()

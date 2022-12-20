@@ -54,7 +54,7 @@ namespace AppCore.CommandModel.Logging
                 }
                 else
                 {
-                    _logger.CommandFailed(context, context.Error);
+                    _logger.CommandFailed(context, context.Error!);
                 }
             }
             catch (Exception exception)

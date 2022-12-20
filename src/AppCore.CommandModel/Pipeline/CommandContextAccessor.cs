@@ -10,10 +10,10 @@ namespace AppCore.CommandModel.Pipeline
     /// </summary>
     public class CommandContextAccessor : ICommandContextAccessor
     {
-        private readonly AsyncLocal<ICommandContext> _commandContext = new AsyncLocal<ICommandContext>();
+        private readonly AsyncLocal<ICommandContext?> _commandContext = new AsyncLocal<ICommandContext?>();
 
         /// <inheritdoc />
-        public ICommandContext CommandContext
+        public ICommandContext? CommandContext
         {
             get => _commandContext.Value;
             set => _commandContext.Value = value;

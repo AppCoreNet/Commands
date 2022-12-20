@@ -11,6 +11,6 @@ namespace AppCore.CommandModel.Pipeline
         /// <summary>
         /// Gets or sets the current <see cref="ICommandContext"/>.
         /// </summary>
-        ICommandContext CommandContext { get; set; }
+        ICommandContext? CommandContext { get; set; }
     }
 }

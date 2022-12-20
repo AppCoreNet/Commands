@@ -30,7 +30,7 @@ namespace AppCore.CommandModel.Pipeline
 
         public async Task<TResult> InvokeAsync(ICommandContext context, CancellationToken cancellationToken)
         {
-            ExceptionDispatchInfo exceptionDispatchInfo = null;
+            ExceptionDispatchInfo? exceptionDispatchInfo = null;
 
             await _behaviors
                    .Reverse()
@@ -68,10 +68,10 @@ namespace AppCore.CommandModel.Pipeline
             if (context.IsFailed)
             {
                 exceptionDispatchInfo?.Throw();
-                throw context.Error;
+                throw context.Error!;
             }
-            
-            return ((ICommandContext<TCommand, TResult>) context).Result;
+
+            return ((ICommandContext<TCommand, TResult>) context).Result!;
         }
     }
 }

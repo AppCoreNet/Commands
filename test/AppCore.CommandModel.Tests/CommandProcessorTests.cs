@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AppCore.CommandModel.Metadata;
 using AppCore.CommandModel.Pipeline;
-using AppCore.DependencyInjection.Activator;
+using AppCore.Extensions.DependencyInjection.Activator;
 using FluentAssertions;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
@@ -39,12 +39,15 @@ namespace AppCore.CommandModel
 
             _serviceProvider = Substitute.For<IServiceProvider>();
             _serviceProvider.GetService(Arg.Is(typeof(ICommandHandler<TestCommand, TestResult>)))
-                      .Returns(_ => _commandHandler);
+                            .Returns(_ => _commandHandler);
 
             _serviceProvider.GetService(Arg.Is(typeof(IEnumerable<ICommandPipelineBehavior<TestCommand, TestResult>>)))
-                      .Returns(_ => _commandBehaviors);
+                            .Returns(_ => _commandBehaviors);
 
-            _processor = new CommandProcessor(new ServiceProviderActivator(_serviceProvider), _commandDescriptorFactory, _commandContextAccessor);
+            _processor = new CommandProcessor(
+                new ServiceProviderActivator(_serviceProvider),
+                _commandDescriptorFactory,
+                _commandContextAccessor);
         }
 
         [Fact]
@@ -121,7 +124,7 @@ namespace AppCore.CommandModel
                             await next(context, ct);
                         });
 
-            _commandBehaviors = new[] {behavior};
+            _commandBehaviors = new[] { behavior };
 
             Func<Task> process = async () => await _processor.ProcessAsync(new TestCommand(), CancellationToken.None);
             process.Should()

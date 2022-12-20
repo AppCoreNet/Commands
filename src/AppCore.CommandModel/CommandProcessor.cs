@@ -6,9 +6,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using AppCore.CommandModel.Metadata;
 using AppCore.CommandModel.Pipeline;
-using AppCore.DependencyInjection;
-using AppCore.DependencyInjection.Activator;
 using AppCore.Diagnostics;
+using AppCore.Extensions.DependencyInjection.Activator;
 
 namespace AppCore.CommandModel
 {
@@ -19,7 +18,7 @@ namespace AppCore.CommandModel
     {
         private readonly IActivator _activator;
         private readonly ICommandDescriptorFactory _commandDescriptorFactory;
-        private readonly ICommandContextAccessor _commandContextAccessor;
+        private readonly ICommandContextAccessor? _commandContextAccessor;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandProcessor"/> class.
@@ -31,7 +30,7 @@ namespace AppCore.CommandModel
         public CommandProcessor(
             IActivator activator,
             ICommandDescriptorFactory commandDescriptorFactory,
-            ICommandContextAccessor commandContextAccessor = null)
+            ICommandContextAccessor? commandContextAccessor = null)
         {
             Ensure.Arg.NotNull(commandDescriptorFactory, nameof(commandDescriptorFactory));
             Ensure.Arg.NotNull(activator, nameof(activator));

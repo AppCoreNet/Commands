@@ -3,7 +3,7 @@
 
 using System;
 using System.Collections.Concurrent;
-using AppCore.DependencyInjection.Activator;
+using AppCore.Extensions.DependencyInjection.Activator;
 
 namespace AppCore.CommandModel.Pipeline
 {

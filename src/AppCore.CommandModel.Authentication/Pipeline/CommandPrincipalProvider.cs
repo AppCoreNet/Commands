@@ -13,7 +13,7 @@ namespace AppCore.CommandModel.Pipeline
     public class CommandPrincipalProvider : ICommandPrincipalProvider
     {
         /// <inheritdoc />
-        public IPrincipal GetUser(ICommandContext context)
+        public IPrincipal? GetUser(ICommandContext context)
         {
             Ensure.Arg.NotNull(context, nameof(context));
             return (context.Command as IAuthenticatedCommand<object>)?.User;

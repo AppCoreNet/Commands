@@ -23,12 +23,12 @@ namespace AppCore.CommandModel
         public TCommand Command { get; }
 
         /// <inheritdoc />
-        public TResult Result { get; private set; }
+        public TResult? Result { get; private set; }
 
         /// <inheritdoc />
-        public Exception Error { get; private set; }
+        public Exception? Error { get; private set; }
 
-        object ICommandContext.Result => Result;
+        object? ICommandContext.Result => Result;
 
         /// <inheritdoc />
         public bool IsCompleted { get; private set; }

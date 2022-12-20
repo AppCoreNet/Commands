@@ -8,19 +8,19 @@ namespace AppCore.CommandModel.Logging
 {
     internal static class CommandLoggingExtensions
     {
-        private static readonly Action<ILogger, object, Exception> _commandProcessing =
+        private static readonly Action<ILogger, object, Exception?> _commandProcessing =
             LoggerMessage.Define<object>(
                 LogLevel.Trace,
                 CommandLoggingBehaviorLogEventIds.CommandHandling,
                 "Processing command {command} ...");
 
-        private static readonly Action<ILogger, object, long, object, Exception> _commandProcessed =
-            LoggerMessage.Define<object, long, object>(
+        private static readonly Action<ILogger, object, long, object?, Exception?> _commandProcessed =
+            LoggerMessage.Define<object, long, object?>(
                 LogLevel.Debug,
                 CommandLoggingBehaviorLogEventIds.CommandHandled,
                 "Successfully processed command {command} in {commandProcessingTime} ms. Result is {commandResult}.");
 
-        private static readonly Action<ILogger, object, Exception> _commandFailed =
+        private static readonly Action<ILogger, object, Exception?> _commandFailed =
             LoggerMessage.Define<object>(
                 LogLevel.Error,
                 CommandLoggingBehaviorLogEventIds.CommandFailed,

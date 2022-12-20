@@ -25,12 +25,12 @@ namespace AppCore.CommandModel
         /// <summary>
         /// Gets the command result.
         /// </summary>
-        object Result { get; }
+        object? Result { get; }
 
         /// <summary>
         /// Gets error that occured.
         /// </summary>
-        Exception Error { get; }
+        Exception? Error { get; }
 
         /// <summary>
         /// Gets a value indicating whether the command has been completed (successfully or not).
@@ -81,7 +81,7 @@ namespace AppCore.CommandModel
         /// <summary>
         /// Gets the command result.
         /// </summary>
-        new TResult Result { get; }
+        new TResult? Result { get; }
 
         /// <summary>
         /// Completes the command with the specified result.
