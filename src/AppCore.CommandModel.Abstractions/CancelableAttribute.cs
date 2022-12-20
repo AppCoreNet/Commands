@@ -4,14 +4,13 @@
 using System;
 using JetBrains.Annotations;
 
-namespace AppCore.CommandModel
+namespace AppCore.CommandModel;
+
+/// <summary>
+/// Enables cancellation for the command type.
+/// </summary>
+[AttributeUsage(AttributeTargets.Struct|AttributeTargets.Class|AttributeTargets.Interface)]
+[BaseTypeRequired(typeof(ICommand<>))]
+public class CancelableAttribute : Attribute
 {
-    /// <summary>
-    /// Enables cancellation for the command type.
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Struct|AttributeTargets.Class|AttributeTargets.Interface)]
-    [BaseTypeRequired(typeof(ICommand<>))]
-    public class CancelableAttribute : Attribute
-    {
-    }
 }

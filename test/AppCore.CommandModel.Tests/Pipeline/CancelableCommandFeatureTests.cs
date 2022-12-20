@@ -5,19 +5,18 @@ using System.Threading;
 using FluentAssertions;
 using Xunit;
 
-namespace AppCore.CommandModel.Pipeline
-{
-    public class CancelableCommandFeatureTests
-    {
-        [Fact]
-        public void CancelSignalsCancellationTokenSource()
-        {
-            var cts = new CancellationTokenSource();
-            var feature = new CancelableCommandFeature(cts);
-            feature.Cancel();
+namespace AppCore.CommandModel.Pipeline;
 
-            cts.IsCancellationRequested.Should()
-               .BeTrue();
-        }
+public class CancelableCommandFeatureTests
+{
+    [Fact]
+    public void CancelSignalsCancellationTokenSource()
+    {
+        var cts = new CancellationTokenSource();
+        var feature = new CancelableCommandFeature(cts);
+        feature.Cancel();
+
+        cts.IsCancellationRequested.Should()
+           .BeTrue();
     }
 }

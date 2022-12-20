@@ -6,21 +6,20 @@ using System.Collections.Generic;
 using System.Reflection;
 using AppCore.CommandModel.Pipeline;
 
-namespace AppCore.CommandModel.Metadata
-{
-    /// <summary>
-    /// Represents a metadata provider for authorized commands.
-    /// </summary>
-    public class AuthorizedCommandMetadataProvider : ICommandMetadataProvider
-    {
-        /// <inheritdoc />
-        public void GetMetadata(Type commandType, IDictionary<string, object> metadata)
-        {
-            bool requiresAuthentication = commandType.GetTypeInfo()
-                                                     .GetCustomAttribute<AuthorizeAttribute>() != null;
+namespace AppCore.CommandModel.Metadata;
 
-            if (requiresAuthentication)
-                metadata.Add(AuthenticatedCommandBehavior.IsAuthorizedMetadataKey, true);
-        }
+/// <summary>
+/// Represents a metadata provider for authorized commands.
+/// </summary>
+public class AuthorizedCommandMetadataProvider : ICommandMetadataProvider
+{
+    /// <inheritdoc />
+    public void GetMetadata(Type commandType, IDictionary<string, object> metadata)
+    {
+        bool requiresAuthentication = commandType.GetTypeInfo()
+                                                 .GetCustomAttribute<AuthorizeAttribute>() != null;
+
+        if (requiresAuthentication)
+            metadata.Add(AuthenticatedCommandBehavior.IsAuthorizedMetadataKey, true);
     }
 }

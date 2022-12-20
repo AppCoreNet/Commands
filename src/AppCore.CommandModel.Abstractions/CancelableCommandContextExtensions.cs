@@ -4,33 +4,32 @@
 using AppCore.CommandModel.Pipeline;
 using AppCore.Diagnostics;
 
-namespace AppCore.CommandModel
+namespace AppCore.CommandModel;
+
+/// <summary>
+/// Provides extension methods for the <see cref="ICommandContext"/> type.
+/// </summary>
+public static class CancelableCommandContextExtensions
 {
     /// <summary>
-    /// Provides extension methods for the <see cref="ICommandContext"/> type.
+    /// Gets a value indicating whether the command is cancelable.
     /// </summary>
-    public static class CancelableCommandContextExtensions
+    /// <param name="context">The <see cref="ICommandContext"/>.</param>
+    /// <returns><c>true</c> if the command can be canceled; <c>false</c> otherwise.</returns>
+    public static bool IsCancelable(this ICommandContext context)
     {
-        /// <summary>
-        /// Gets a value indicating whether the command is cancelable.
-        /// </summary>
-        /// <param name="context">The <see cref="ICommandContext"/>.</param>
-        /// <returns><c>true</c> if the command can be canceled; <c>false</c> otherwise.</returns>
-        public static bool IsCancelable(this ICommandContext context)
-        {
-            Ensure.Arg.NotNull(context, nameof(context));
-            return context.HasFeature<ICancelableCommandFeature>();
-        }
+        Ensure.Arg.NotNull(context, nameof(context));
+        return context.HasFeature<ICancelableCommandFeature>();
+    }
 
-        /// <summary>
-        /// Cancels the command.
-        /// </summary>
-        /// <param name="context">The <see cref="ICommandContext"/>.</param>
-        public static void Cancel(this ICommandContext context)
-        {
-            Ensure.Arg.NotNull(context, nameof(context));
-            var feature = context.GetFeature<ICancelableCommandFeature>();
-            feature.Cancel();
-        }
+    /// <summary>
+    /// Cancels the command.
+    /// </summary>
+    /// <param name="context">The <see cref="ICommandContext"/>.</param>
+    public static void Cancel(this ICommandContext context)
+    {
+        Ensure.Arg.NotNull(context, nameof(context));
+        var feature = context.GetFeature<ICancelableCommandFeature>();
+        feature.Cancel();
     }
 }

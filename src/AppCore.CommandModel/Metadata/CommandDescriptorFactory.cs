@@ -7,51 +7,50 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using AppCore.Diagnostics;
 
-namespace AppCore.CommandModel.Metadata
+namespace AppCore.CommandModel.Metadata;
+
+/// <summary>
+/// Creates new <see cref="CommandDescriptor"/> instances.
+/// </summary>
+public class CommandDescriptorFactory : ICommandDescriptorFactory
 {
+    private readonly ConcurrentDictionary<Type, IReadOnlyDictionary<string, object>> _metadataCache =
+        new ConcurrentDictionary<Type, IReadOnlyDictionary<string, object>>();
+
+    private readonly IEnumerable<ICommandMetadataProvider> _metadataProviders;
+
     /// <summary>
-    /// Creates new <see cref="CommandDescriptor"/> instances.
+    /// Initializes a new instance of the <see cref="CommandDescriptorFactory"/> class.
     /// </summary>
-    public class CommandDescriptorFactory : ICommandDescriptorFactory
+    /// <param name="metadataProviders">The <see cref="IEnumerable{T}"/> of <see cref="ICommandMetadataProvider"/>'s.</param>
+    public CommandDescriptorFactory(IEnumerable<ICommandMetadataProvider> metadataProviders)
     {
-        private readonly ConcurrentDictionary<Type, IReadOnlyDictionary<string, object>> _metadataCache =
-            new ConcurrentDictionary<Type, IReadOnlyDictionary<string, object>>();
+        Ensure.Arg.NotNull(metadataProviders, nameof(metadataProviders));
+        _metadataProviders = metadataProviders;
+    }
 
-        private readonly IEnumerable<ICommandMetadataProvider> _metadataProviders;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CommandDescriptorFactory"/> class.
-        /// </summary>
-        /// <param name="metadataProviders">The <see cref="IEnumerable{T}"/> of <see cref="ICommandMetadataProvider"/>'s.</param>
-        public CommandDescriptorFactory(IEnumerable<ICommandMetadataProvider> metadataProviders)
-        {
-            Ensure.Arg.NotNull(metadataProviders, nameof(metadataProviders));
-            _metadataProviders = metadataProviders;
-        }
-
-        private IReadOnlyDictionary<string, object> GetMetadata(Type commandType)
-        {
-            return _metadataCache.GetOrAdd(
-                commandType,
-                t =>
+    private IReadOnlyDictionary<string, object> GetMetadata(Type commandType)
+    {
+        return _metadataCache.GetOrAdd(
+            commandType,
+            t =>
+            {
+                var metadata = new Dictionary<string, object>();
+                foreach (ICommandMetadataProvider metadataProvider in _metadataProviders)
                 {
-                    var metadata = new Dictionary<string, object>();
-                    foreach (ICommandMetadataProvider metadataProvider in _metadataProviders)
-                    {
-                        metadataProvider.GetMetadata(t, metadata);
-                    }
+                    metadataProvider.GetMetadata(t, metadata);
+                }
 
-                    return new ReadOnlyDictionary<string, object>(metadata);
-                });
-        }
+                return new ReadOnlyDictionary<string, object>(metadata);
+            });
+    }
 
-        /// <inheritdoc />
-        public CommandDescriptor CreateDescriptor(Type commandType)
-        {
-            Ensure.Arg.NotNull(commandType, nameof(commandType));
-            Ensure.Arg.OfType(commandType, typeof(ICommand<>), nameof(commandType));
+    /// <inheritdoc />
+    public CommandDescriptor CreateDescriptor(Type commandType)
+    {
+        Ensure.Arg.NotNull(commandType, nameof(commandType));
+        Ensure.Arg.OfType(commandType, typeof(ICommand<>), nameof(commandType));
 
-            return new CommandDescriptor(commandType, GetMetadata(commandType));
-        }
+        return new CommandDescriptor(commandType, GetMetadata(commandType));
     }
 }

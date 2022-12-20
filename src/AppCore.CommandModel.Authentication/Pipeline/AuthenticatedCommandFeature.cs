@@ -4,24 +4,23 @@
 using System.Security.Principal;
 using AppCore.Diagnostics;
 
-namespace AppCore.CommandModel.Pipeline
-{
-    /// <summary>
-    /// Implements command authentication support.
-    /// </summary>
-    public class AuthenticatedCommandFeature : IAuthenticatedCommandFeature
-    {
-        /// <inheritdoc />
-        public IPrincipal User { get; }
+namespace AppCore.CommandModel.Pipeline;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AuthenticatedCommandFeature"/> class.
-        /// </summary>
-        /// <param name="user">The current <see cref="IPrincipal"/>.</param>
-        public AuthenticatedCommandFeature(IPrincipal user)
-        {
-            Ensure.Arg.NotNull(user, nameof(user));
-            User = user;
-        }
+/// <summary>
+/// Implements command authentication support.
+/// </summary>
+public class AuthenticatedCommandFeature : IAuthenticatedCommandFeature
+{
+    /// <inheritdoc />
+    public IPrincipal User { get; }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AuthenticatedCommandFeature"/> class.
+    /// </summary>
+    /// <param name="user">The current <see cref="IPrincipal"/>.</param>
+    public AuthenticatedCommandFeature(IPrincipal user)
+    {
+        Ensure.Arg.NotNull(user, nameof(user));
+        User = user;
     }
 }

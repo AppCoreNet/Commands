@@ -3,24 +3,23 @@
 
 using System.Security.Principal;
 
-namespace AppCore.CommandModel
+namespace AppCore.CommandModel;
+
+/// <summary>
+/// Represents a command which requires the current principal.
+/// </summary>
+/// <typeparam name="TResult">The type of the result.</typeparam>
+public interface IAuthenticatedCommand<out TResult> : ICommand<TResult>
 {
     /// <summary>
-    /// Represents a command which requires the current principal.
+    /// Gets the <see cref="IPrincipal"/> used to authorize the command.
     /// </summary>
-    /// <typeparam name="TResult">The type of the result.</typeparam>
-    public interface IAuthenticatedCommand<out TResult> : ICommand<TResult>
-    {
-        /// <summary>
-        /// Gets the <see cref="IPrincipal"/> used to authorize the command.
-        /// </summary>
-        IPrincipal User { get; }
-    }
+    IPrincipal User { get; }
+}
 
-    /// <summary>
-    /// Represents a command which requires the current principal.
-    /// </summary>
-    public interface IAuthenticatedCommand : IAuthenticatedCommand<VoidResult>
-    {
-    }
+/// <summary>
+/// Represents a command which requires the current principal.
+/// </summary>
+public interface IAuthenticatedCommand : IAuthenticatedCommand<VoidResult>
+{
 }

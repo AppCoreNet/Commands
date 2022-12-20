@@ -3,13 +3,12 @@
 
 using System;
 
-namespace AppCore.CommandModel
+namespace AppCore.CommandModel;
+
+/// <summary>
+/// When applied to a command type, requires authorization of the user.
+/// </summary>
+[AttributeUsage(AttributeTargets.Class)]
+public class AuthorizeAttribute : Attribute
 {
-    /// <summary>
-    /// When applied to a command type, requires authorization of the user.
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Class)]
-    public class AuthorizeAttribute : Attribute
-    {
-    }
 }
