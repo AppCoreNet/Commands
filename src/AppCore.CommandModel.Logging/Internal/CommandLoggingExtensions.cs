@@ -12,19 +12,19 @@ internal static class CommandLoggingExtensions
         LoggerMessage.Define<object>(
             LogLevel.Trace,
             CommandLoggingBehaviorLogEventIds.CommandHandling,
-            "Processing command {command} ...");
+            "Processing command {@command} ...");
 
     private static readonly Action<ILogger, object, long, object?, Exception?> _commandProcessed =
         LoggerMessage.Define<object, long, object?>(
             LogLevel.Debug,
             CommandLoggingBehaviorLogEventIds.CommandHandled,
-            "Successfully processed command {command} in {commandProcessingTime} ms. Result is {commandResult}.");
+            "Successfully processed command {@command} in {commandProcessingTime} ms. Result is {@commandResult}.");
 
     private static readonly Action<ILogger, object, Exception?> _commandFailed =
         LoggerMessage.Define<object>(
             LogLevel.Error,
             CommandLoggingBehaviorLogEventIds.CommandFailed,
-            "Error processing command {command}.");
+            "Error processing command {@command}.");
 
     public static void CommandProcessing(this ILogger logger, ICommandContext context)
     {
