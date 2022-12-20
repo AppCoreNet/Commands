@@ -4,31 +4,30 @@
 using System.Threading;
 using AppCore.Diagnostics;
 
-namespace AppCore.CommandModel.Pipeline
+namespace AppCore.CommandModel.Pipeline;
+
+/// <summary>
+/// Implements cancellation support for the <see cref="ICommandContext"/>.
+/// </summary>
+public class CancelableCommandFeature : ICancelableCommandFeature
 {
+    private readonly CancellationTokenSource _cancellationTokenSource;
+
     /// <summary>
-    /// Implements cancellation support for the <see cref="ICommandContext"/>.
+    /// Initializes a new instance of the <see cref="CancelableCommandFeature"/> class.
     /// </summary>
-    public class CancelableCommandFeature : ICancelableCommandFeature
+    /// <param name="cancellationTokenSource">The <see cref="CancellationTokenSource"/>.</param>
+    public CancelableCommandFeature(CancellationTokenSource cancellationTokenSource)
     {
-        private readonly CancellationTokenSource _cancellationTokenSource;
+        Ensure.Arg.NotNull(cancellationTokenSource);
+        _cancellationTokenSource = cancellationTokenSource;
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CancelableCommandFeature"/> class.
-        /// </summary>
-        /// <param name="cancellationTokenSource">The <see cref="CancellationTokenSource"/>.</param>
-        public CancelableCommandFeature(CancellationTokenSource cancellationTokenSource)
-        {
-            Ensure.Arg.NotNull(cancellationTokenSource, nameof(cancellationTokenSource));
-            _cancellationTokenSource = cancellationTokenSource;
-        }
-
-        /// <summary>
-        /// Notifies the <see cref="CancellationToken"/>.
-        /// </summary>
-        public void Cancel()
-        {
-            _cancellationTokenSource.Cancel();
-        }
+    /// <summary>
+    /// Notifies the <see cref="CancellationToken"/>.
+    /// </summary>
+    public void Cancel()
+    {
+        _cancellationTokenSource.Cancel();
     }
 }

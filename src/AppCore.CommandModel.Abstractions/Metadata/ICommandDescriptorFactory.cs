@@ -3,18 +3,17 @@
 
 using System;
 
-namespace AppCore.CommandModel.Metadata
+namespace AppCore.CommandModel.Metadata;
+
+/// <summary>
+/// Represents a type which instantiates <see cref="CommandDescriptor"/> objects.
+/// </summary>
+public interface ICommandDescriptorFactory
 {
     /// <summary>
-    /// Represents a type which instantiates <see cref="CommandDescriptor"/> objects.
+    /// Creates a new instance of <see cref="CommandDescriptor"/> for the specified <paramref name="commandType"/>.
     /// </summary>
-    public interface ICommandDescriptorFactory
-    {
-        /// <summary>
-        /// Creates a new instance of <see cref="CommandDescriptor"/> for the specified <paramref name="commandType"/>.
-        /// </summary>
-        /// <param name="commandType">The type of the event.</param>
-        /// <returns>The <see cref="CommandDescriptor"/>.</returns>
-        CommandDescriptor CreateDescriptor(Type commandType);
-    }
+    /// <param name="commandType">The type of the event.</param>
+    /// <returns>The <see cref="CommandDescriptor"/>.</returns>
+    CommandDescriptor CreateDescriptor(Type commandType);
 }

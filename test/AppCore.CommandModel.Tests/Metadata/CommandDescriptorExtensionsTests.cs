@@ -6,97 +6,96 @@ using System.Collections.Generic;
 using FluentAssertions;
 using Xunit;
 
-namespace AppCore.CommandModel.Metadata
+namespace AppCore.CommandModel.Metadata;
+
+public class CommandDescriptorExtensionsTests
 {
-    public class CommandDescriptorExtensionsTests
+    [Fact]
+    public void TryGetMetadataReturnsValue()
     {
-        [Fact]
-        public void TryGetMetadataReturnsValue()
+        string testKey = "test";
+        int testValue = 1;
+
+        var metadata = new Dictionary<string, object> { { testKey, testValue }};
+        var descriptor = new CommandDescriptor(typeof(TestCommand), metadata);
+
+        descriptor.TryGetMetadata(testKey, out int value)
+                  .Should()
+                  .BeTrue();
+
+        value.Should()
+             .Be(testValue);
+    }
+
+    [Fact]
+    public void TryGetMetadataReturnsFalseIfNotFound()
+    {
+        string testKey = "test";
+        var metadata = new Dictionary<string, object>();
+        var descriptor = new CommandDescriptor(typeof(TestCommand), metadata);
+
+        descriptor.TryGetMetadata(testKey, out int _)
+                  .Should()
+                  .BeFalse();
+    }
+
+    [Fact]
+    public void TryGetMetadataThrowsIfOfWrongType()
+    {
+        string testKey = "test";
+        int testValue = 1;
+
+        var metadata = new Dictionary<string, object> { { testKey, testValue }};
+        var descriptor = new CommandDescriptor(typeof(TestCommand), metadata);
+
+        Action action = () =>
         {
-            string testKey = "test";
-            int testValue = 1;
+            descriptor.TryGetMetadata(testKey, out string? _);
+        };
 
-            var metadata = new Dictionary<string, object> { { testKey, testValue }};
-            var descriptor = new CommandDescriptor(typeof(TestCommand), metadata);
+        action.Should()
+              .Throw<InvalidCastException>();
+    }
 
-            descriptor.TryGetMetadata(testKey, out int value)
-                      .Should()
-                      .BeTrue();
+    [Fact]
+    public void GetMetadataReturnsDefaultValueIfNotFound()
+    {
+        int defaultValue = 123;
+        string testKey = "test";
+        var metadata = new Dictionary<string, object>();
+        var descriptor = new CommandDescriptor(typeof(TestCommand), metadata);
 
-            value.Should()
-                 .Be(testValue);
-        }
+        descriptor.GetMetadata(testKey, defaultValue)
+                  .Should()
+                  .Be(defaultValue);
+    }
 
-        [Fact]
-        public void TryGetMetadataReturnsFalseIfNotFound()
+    [Fact]
+    public void GetMetadataReturnsValue()
+    {
+        string testKey = "test";
+        int testValue = 1;
+
+        var metadata = new Dictionary<string, object> { { testKey, testValue }};
+        var descriptor = new CommandDescriptor(typeof(TestCommand), metadata);
+
+        descriptor.GetMetadata<int>(testKey)
+                  .Should()
+                  .Be(testValue);
+    }
+
+    [Fact]
+    public void GetMetadataThrowsIfNotFound()
+    {
+        var metadata = new Dictionary<string, object>();
+        var descriptor = new CommandDescriptor(typeof(TestCommand), metadata);
+
+        Action action = () =>
         {
-            string testKey = "test";
-            var metadata = new Dictionary<string, object>();
-            var descriptor = new CommandDescriptor(typeof(TestCommand), metadata);
+            descriptor.GetMetadata<int>("key");
+        };
 
-            descriptor.TryGetMetadata(testKey, out int value)
-                      .Should()
-                      .BeFalse();
-        }
-
-        [Fact]
-        public void TryGetMetadataThrowsIfOfWrongType()
-        {
-            string testKey = "test";
-            int testValue = 1;
-
-            var metadata = new Dictionary<string, object> { { testKey, testValue }};
-            var descriptor = new CommandDescriptor(typeof(TestCommand), metadata);
-
-            Action action = () =>
-            {
-                descriptor.TryGetMetadata(testKey, out string wrongTypeValue);
-            };
-
-            action.Should()
-                  .Throw<InvalidCastException>();
-        }
-
-        [Fact]
-        public void GetMetadataReturnsDefaultValueIfNotFound()
-        {
-            int defaultValue = 123;
-            string testKey = "test";
-            var metadata = new Dictionary<string, object>();
-            var descriptor = new CommandDescriptor(typeof(TestCommand), metadata);
-
-            descriptor.GetMetadata(testKey, defaultValue)
-                      .Should()
-                      .Be(defaultValue);
-        }
-
-        [Fact]
-        public void GetMetadataReturnsValue()
-        {
-            string testKey = "test";
-            int testValue = 1;
-
-            var metadata = new Dictionary<string, object> { { testKey, testValue }};
-            var descriptor = new CommandDescriptor(typeof(TestCommand), metadata);
-
-            descriptor.GetMetadata<int>(testKey)
-                      .Should()
-                      .Be(testValue);
-        }
-
-        [Fact]
-        public void GetMetadataThrowsIfNotFound()
-        {
-            var metadata = new Dictionary<string, object>();
-            var descriptor = new CommandDescriptor(typeof(TestCommand), metadata);
-
-            Action action = () =>
-            {
-                descriptor.GetMetadata<int>("key");
-            };
-
-            action.Should()
-                  .Throw<KeyNotFoundException>();
-        }
+        action.Should()
+              .Throw<KeyNotFoundException>();
     }
 }

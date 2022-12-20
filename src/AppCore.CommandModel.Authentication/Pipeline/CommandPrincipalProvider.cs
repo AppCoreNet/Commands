@@ -4,19 +4,18 @@
 using System.Security.Principal;
 using AppCore.Diagnostics;
 
-namespace AppCore.CommandModel.Pipeline
+namespace AppCore.CommandModel.Pipeline;
+
+/// <summary>
+/// Retrieves the principal from the current command. The command is required to
+/// implement <see cref="IAuthenticatedCommand{TResult}"/>.
+/// </summary>
+public class CommandPrincipalProvider : ICommandPrincipalProvider
 {
-    /// <summary>
-    /// Retrieves the principal from the current command. The command is required to
-    /// implement <see cref="IAuthenticatedCommand{TResult}"/>.
-    /// </summary>
-    public class CommandPrincipalProvider : ICommandPrincipalProvider
+    /// <inheritdoc />
+    public IPrincipal? GetUser(ICommandContext context)
     {
-        /// <inheritdoc />
-        public IPrincipal GetUser(ICommandContext context)
-        {
-            Ensure.Arg.NotNull(context, nameof(context));
-            return (context.Command as IAuthenticatedCommand<object>)?.User;
-        }
+        Ensure.Arg.NotNull(context);
+        return (context.Command as IAuthenticatedCommand<object>)?.User;
     }
 }

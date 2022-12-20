@@ -7,39 +7,38 @@ using AppCore.CommandModel.Metadata;
 using FluentAssertions;
 using Xunit;
 
-namespace AppCore.CommandModel
+namespace AppCore.CommandModel;
+
+public class CommandContextTests
 {
-    public class CommandContextTests
+    [Fact]
+    public void CtorThrowsIfCommandDoesNotMatchDescriptorType()
     {
-        [Fact]
-        public void CtorThrowsIfCommandDoesNotMatchDescriptorType()
+        Type commandType = typeof(TestCommand);
+        var descriptor = new CommandDescriptor(commandType, new Dictionary<string, object>());
+
+        Action action = () =>
         {
-            Type commandType = typeof(TestCommand);
-            var descriptor = new CommandDescriptor(commandType, new Dictionary<string, object>());
+            // ReSharper disable once ObjectCreationAsStatement
+            new CommandContext<CancelableTestCommand, TestResult>(descriptor, new CancelableTestCommand());
+        };
 
-            Action action = () =>
-            {
-                // ReSharper disable once ObjectCreationAsStatement
-                new CommandContext<CancelableTestCommand, TestResult>(descriptor, new CancelableTestCommand());
-            };
+        action.Should()
+              .Throw<ArgumentException>();
+    }
 
-            action.Should()
-                  .Throw<ArgumentException>();
-        }
+    [Fact]
+    public void GetCommandReturnsCommand()
+    {
+        Type commandType = typeof(TestCommand);
+        var descriptor = new CommandDescriptor(commandType, new Dictionary<string, object>());
+        var command = new TestCommand();
+        var context = new CommandContext<TestCommand, TestResult>(descriptor, command);
 
-        [Fact]
-        public void GetCommandReturnsCommand()
-        {
-            Type commandType = typeof(TestCommand);
-            var descriptor = new CommandDescriptor(commandType, new Dictionary<string, object>());
-            var command = new TestCommand();
-            var context = new CommandContext<TestCommand, TestResult>(descriptor, command);
+        context.Command.Should()
+               .BeSameAs(command);
 
-            context.Command.Should()
-                   .BeSameAs(command);
-
-            ((ICommandContext) context).Command.Should()
-                                       .BeSameAs(command);
-        }
+        ((ICommandContext) context).Command.Should()
+                                   .BeSameAs(command);
     }
 }

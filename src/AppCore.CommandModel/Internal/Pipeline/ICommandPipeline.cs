@@ -5,12 +5,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using AppCore.CommandModel.Metadata;
 
-namespace AppCore.CommandModel.Pipeline
-{
-    internal interface ICommandPipeline<TResult>
-    {
-        ICommandContext CreateCommandContext(CommandDescriptor descriptor, ICommand<TResult> command);
+namespace AppCore.CommandModel.Pipeline;
 
-        Task<TResult> InvokeAsync(ICommandContext context, CancellationToken cancellationToken);
-    }
+internal interface ICommandPipeline<TResult>
+{
+    ICommandContext CreateCommandContext(CommandDescriptor descriptor, ICommand<TResult> command);
+
+    Task<TResult> InvokeAsync(ICommandContext context, CancellationToken cancellationToken);
 }

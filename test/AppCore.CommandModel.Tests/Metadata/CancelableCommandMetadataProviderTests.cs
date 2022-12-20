@@ -6,34 +6,33 @@ using AppCore.CommandModel.Pipeline;
 using FluentAssertions;
 using Xunit;
 
-namespace AppCore.CommandModel.Metadata
+namespace AppCore.CommandModel.Metadata;
+
+public class CancelableCommandMetadataProviderTests
 {
-    public class CancelableCommandMetadataProviderTests
+    [Fact]
+    public void GetMetadataResolvesMetadataItemFromTypeWithAttribute()
     {
-        [Fact]
-        public void GetMetadataResolvesMetadataItemFromTypeWithAttribute()
-        {
-            var provider = new CancelableCommandMetadataProvider();
+        var provider = new CancelableCommandMetadataProvider();
 
-            var metadata = new Dictionary<string, object>();
-            provider.GetMetadata(typeof(CancelableTestCommand), metadata);
+        var metadata = new Dictionary<string, object>();
+        provider.GetMetadata(typeof(CancelableTestCommand), metadata);
 
-            metadata.Should()
-                    .Contain(
-                        new KeyValuePair<string, object>(CancelableCommandBehavior.IsCancelableMetadataKey, true));
-        }
+        metadata.Should()
+                .Contain(
+                    new KeyValuePair<string, object>(CancelableCommandBehavior.IsCancelableMetadataKey, true));
+    }
 
-        [Fact]
-        public void GetMetadataDoesNotResolveMetadataItemFromTypeWithoutAttribute()
-        {
-            var provider = new CancelableCommandMetadataProvider();
+    [Fact]
+    public void GetMetadataDoesNotResolveMetadataItemFromTypeWithoutAttribute()
+    {
+        var provider = new CancelableCommandMetadataProvider();
 
-            var metadata = new Dictionary<string, object>();
-            provider.GetMetadata(typeof(TestCommand), metadata);
+        var metadata = new Dictionary<string, object>();
+        provider.GetMetadata(typeof(TestCommand), metadata);
 
-            metadata.Should()
-                    .NotContain(
-                        new KeyValuePair<string, object>(CancelableCommandBehavior.IsCancelableMetadataKey, true));
-        }
+        metadata.Should()
+                .NotContain(
+                    new KeyValuePair<string, object>(CancelableCommandBehavior.IsCancelableMetadataKey, true));
     }
 }

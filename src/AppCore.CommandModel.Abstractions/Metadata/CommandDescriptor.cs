@@ -5,36 +5,35 @@ using System;
 using System.Collections.Generic;
 using AppCore.Diagnostics;
 
-namespace AppCore.CommandModel.Metadata
+namespace AppCore.CommandModel.Metadata;
+
+/// <summary>
+/// Describes a command type.
+/// </summary>
+public class CommandDescriptor
 {
     /// <summary>
-    /// Describes a command type.
+    /// Gets the type of the command.
     /// </summary>
-    public class CommandDescriptor
+    public Type CommandType { get; }
+
+    /// <summary>
+    /// Gets the metadata of the command type.
+    /// </summary>
+    public IReadOnlyDictionary<string, object> Metadata { get; }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CommandDescriptor"/>.
+    /// </summary>
+    /// <param name="commandType">The type of the command.</param>
+    /// <param name="metadata">The event type metadata.</param>
+    public CommandDescriptor(Type commandType, IReadOnlyDictionary<string, object> metadata)
     {
-        /// <summary>
-        /// Gets the type of the command.
-        /// </summary>
-        public Type CommandType { get; }
+        Ensure.Arg.NotNull(commandType);
+        Ensure.Arg.OfType(commandType, typeof(ICommand<>));
+        Ensure.Arg.NotNull(metadata);
 
-        /// <summary>
-        /// Gets the metadata of the command type.
-        /// </summary>
-        public IReadOnlyDictionary<string, object> Metadata { get; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CommandDescriptor"/>.
-        /// </summary>
-        /// <param name="commandType">The type of the command.</param>
-        /// <param name="metadata">The event type metadata.</param>
-        public CommandDescriptor(Type commandType, IReadOnlyDictionary<string, object> metadata)
-        {
-            Ensure.Arg.NotNull(commandType, nameof(commandType));
-            Ensure.Arg.OfType(commandType, typeof(ICommand<>), nameof(commandType));
-            Ensure.Arg.NotNull(metadata, nameof(metadata));
-
-            CommandType = commandType;
-            Metadata = metadata;
-        }
+        CommandType = commandType;
+        Metadata = metadata;
     }
 }

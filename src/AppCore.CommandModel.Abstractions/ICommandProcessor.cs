@@ -4,19 +4,18 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AppCore.CommandModel
+namespace AppCore.CommandModel;
+
+/// <summary>
+/// Represents the command processor.
+/// </summary>
+public interface ICommandProcessor
 {
     /// <summary>
-    /// Represents the command processor.
+    /// Processes a command.
     /// </summary>
-    public interface ICommandProcessor
-    {
-        /// <summary>
-        /// Processes a command.
-        /// </summary>
-        /// <param name="command">The command to process.</param>
-        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
-        /// <returns>A task that represents the asynchronous command operation.</returns>
-        Task<TResult> ProcessAsync<TResult>(ICommand<TResult> command, CancellationToken cancellationToken);
-    }
+    /// <param name="command">The command to process.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>A task that represents the asynchronous command operation.</returns>
+    Task<TResult> ProcessAsync<TResult>(ICommand<TResult> command, CancellationToken cancellationToken);
 }

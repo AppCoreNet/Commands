@@ -3,71 +3,70 @@
 
 using System;
 
-namespace AppCore.CommandModel
+namespace AppCore.CommandModel;
+
+/// <summary>
+/// Represents a <see cref="Void"/> command result.
+/// </summary>
+/// <seealso cref="ICommand"/>
+public sealed class VoidResult : IEquatable<VoidResult>
 {
     /// <summary>
-    /// Represents a <see cref="Void"/> command result.
+    /// Gets the singleton instance of <see cref="VoidResult"/>.
     /// </summary>
-    /// <seealso cref="ICommand"/>
-    public sealed class VoidResult : IEquatable<VoidResult>
-    {
-        /// <summary>
-        /// Gets the singleton instance of <see cref="VoidResult"/>.
-        /// </summary>
-        public static readonly VoidResult Instance = new VoidResult();
+    public static readonly VoidResult Instance = new VoidResult();
 
-        private VoidResult()
+    private VoidResult()
+    {
+    }
+
+    /// <inheritdoc />
+    public bool Equals(VoidResult other)
+    {
+        return true;
+    }
+
+    /// <inheritdoc />
+    public override bool Equals(object obj)
+    {
+        if (ReferenceEquals(null, obj))
         {
+            return false;
         }
 
-        /// <inheritdoc />
-        public bool Equals(VoidResult other)
+        if (ReferenceEquals(this, obj))
         {
             return true;
         }
 
-        /// <inheritdoc />
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
+        return obj is VoidResult other && Equals(other);
+    }
 
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
+    /// <inheritdoc />
+    public override int GetHashCode()
+    {
+        return 735275808;
+    }
 
-            return obj is VoidResult other && Equals(other);
-        }
+    /// <summary>
+    /// Compares two instances of <see cref="VoidResult"/> for equality.
+    /// </summary>
+    /// <param name="left"></param>
+    /// <param name="right"></param>
+    /// <returns></returns>
+    public static bool operator ==(VoidResult left, VoidResult right)
+    {
+        return Equals(left, right);
+    }
 
-        /// <inheritdoc />
-        public override int GetHashCode()
-        {
-            return 735275808;
-        }
-
-        /// <summary>
-        /// Compares two instances of <see cref="VoidResult"/> for equality.
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
-        public static bool operator ==(VoidResult left, VoidResult right)
-        {
-            return Equals(left, right);
-        }
-
-        /// <summary>
-        /// Compares two instances of <see cref="VoidResult"/> for un-equality.
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
-        public static bool operator !=(VoidResult left, VoidResult right)
-        {
-            return !Equals(left, right);
-        }
+    /// <summary>
+    /// Compares two instances of <see cref="VoidResult"/> for un-equality.
+    /// </summary>
+    /// <param name="left"></param>
+    /// <param name="right"></param>
+    /// <returns></returns>
+    public static bool operator !=(VoidResult left, VoidResult right)
+    {
+        return !Equals(left, right);
     }
 }
