@@ -27,7 +27,7 @@ public static class CommandModelAppCoreBuilderExtensions
         this IAppCoreBuilder builder,
         Action<ICommandModelBuilder>? configure = null)
     {
-        Ensure.Arg.NotNull(builder, nameof(builder));
+        Ensure.Arg.NotNull(builder);
 
         IServiceCollection services = builder.Services;
 

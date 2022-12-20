@@ -15,7 +15,7 @@ public class CommandPrincipalProvider : ICommandPrincipalProvider
     /// <inheritdoc />
     public IPrincipal? GetUser(ICommandContext context)
     {
-        Ensure.Arg.NotNull(context, nameof(context));
+        Ensure.Arg.NotNull(context);
         return (context.Command as IAuthenticatedCommand<object>)?.User;
     }
 }

@@ -42,7 +42,7 @@ public static class CommandModelBuilderExtensions
         ServiceLifetime lifetime = ServiceLifetime.Transient)
     {
         Ensure.Arg.NotNull(builder);
-        Ensure.Arg.NotNull(handlerType, nameof(handlerType));
+        Ensure.Arg.NotNull(handlerType);
 
         builder.Services.TryAddEnumerable(
             ServiceDescriptor.Describe(typeof(ICommandHandler<,>), handlerType, lifetime));
@@ -64,7 +64,7 @@ public static class CommandModelBuilderExtensions
         ServiceLifetime defaultLifetime = ServiceLifetime.Transient)
     {
         Ensure.Arg.NotNull(builder);
-        Ensure.Arg.NotNull(configure, nameof(configure));
+        Ensure.Arg.NotNull(configure);
 
         builder.Services.TryAddEnumerableFrom(
             typeof(ICommandHandler<,>),
@@ -91,7 +91,7 @@ public static class CommandModelBuilderExtensions
         ServiceLifetime lifetime = ServiceLifetime.Transient)
     {
         Ensure.Arg.NotNull(builder);
-        Ensure.Arg.NotNull(handlerType, nameof(handlerType));
+        Ensure.Arg.NotNull(handlerType);
 
         builder.Services.TryAddEnumerable(
             ServiceDescriptor.Describe(typeof(IPreCommandHandler<,>), handlerType, lifetime));
@@ -113,7 +113,7 @@ public static class CommandModelBuilderExtensions
         ServiceLifetime defaultLifetime = ServiceLifetime.Transient)
     {
         Ensure.Arg.NotNull(builder);
-        Ensure.Arg.NotNull(configure, nameof(configure));
+        Ensure.Arg.NotNull(configure);
 
         builder.Services.TryAddEnumerableFrom(
             typeof(IPreCommandHandler<,>),
@@ -140,7 +140,7 @@ public static class CommandModelBuilderExtensions
         ServiceLifetime lifetime = ServiceLifetime.Transient)
     {
         Ensure.Arg.NotNull(builder);
-        Ensure.Arg.NotNull(handlerType, nameof(handlerType));
+        Ensure.Arg.NotNull(handlerType);
 
         builder.Services.TryAddEnumerable(
             ServiceDescriptor.Describe(typeof(IPostCommandHandler<,>), handlerType, lifetime));
@@ -162,7 +162,7 @@ public static class CommandModelBuilderExtensions
         ServiceLifetime defaultLifetime = ServiceLifetime.Transient)
     {
         Ensure.Arg.NotNull(builder);
-        Ensure.Arg.NotNull(configure, nameof(configure));
+        Ensure.Arg.NotNull(configure);
 
         builder.Services.TryAddEnumerableFrom(
             typeof(IPostCommandHandler<,>),
@@ -189,7 +189,7 @@ public static class CommandModelBuilderExtensions
         ServiceLifetime lifetime = ServiceLifetime.Transient)
     {
         Ensure.Arg.NotNull(builder);
-        Ensure.Arg.NotNull(handlerType, nameof(handlerType));
+        Ensure.Arg.NotNull(handlerType);
 
         builder.Services.TryAddEnumerable(
             ServiceDescriptor.Describe(typeof(ICommandPipelineBehavior<,>), handlerType, lifetime));
@@ -211,7 +211,7 @@ public static class CommandModelBuilderExtensions
         ServiceLifetime defaultLifetime = ServiceLifetime.Transient)
     {
         Ensure.Arg.NotNull(builder);
-        Ensure.Arg.NotNull(configure, nameof(configure));
+        Ensure.Arg.NotNull(configure);
 
         builder.Services.TryAddEnumerableFrom(
             typeof(ICommandPipelineBehavior<,>),

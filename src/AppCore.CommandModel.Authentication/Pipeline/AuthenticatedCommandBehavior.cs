@@ -35,7 +35,7 @@ public class AuthenticatedCommandBehavior<TCommand, TResult> : ICommandPipelineB
     /// <param name="principalProviders">The command principal providers.</param>
     public AuthenticatedCommandBehavior(IEnumerable<ICommandPrincipalProvider> principalProviders)
     {
-        Ensure.Arg.NotNull(principalProviders, nameof(principalProviders));
+        Ensure.Arg.NotNull(principalProviders);
         _principalProviders = principalProviders;
     }
 

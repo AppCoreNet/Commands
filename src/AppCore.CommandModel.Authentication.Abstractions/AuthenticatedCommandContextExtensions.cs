@@ -19,7 +19,7 @@ public static class AuthenticatedCommandContextExtensions
     /// <returns><c>true</c> if a user is authenticated; <c>false</c> otherwise.</returns>
     public static bool IsAuthenticated(this ICommandContext context)
     {
-        Ensure.Arg.NotNull(context, nameof(context));
+        Ensure.Arg.NotNull(context);
         return context.User().Identity.IsAuthenticated;
     }
 
@@ -30,7 +30,7 @@ public static class AuthenticatedCommandContextExtensions
     /// <returns>The current <see cref="IPrincipal"/>.</returns>
     public static IPrincipal User(this ICommandContext context)
     {
-        Ensure.Arg.NotNull(context, nameof(context));
+        Ensure.Arg.NotNull(context);
         var feature = context.GetFeature<IAuthenticatedCommandFeature>();
         return feature.User;
     }

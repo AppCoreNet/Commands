@@ -18,7 +18,7 @@ public static class CancelableCommandContextExtensions
     /// <returns><c>true</c> if the command can be canceled; <c>false</c> otherwise.</returns>
     public static bool IsCancelable(this ICommandContext context)
     {
-        Ensure.Arg.NotNull(context, nameof(context));
+        Ensure.Arg.NotNull(context);
         return context.HasFeature<ICancelableCommandFeature>();
     }
 
@@ -28,7 +28,7 @@ public static class CancelableCommandContextExtensions
     /// <param name="context">The <see cref="ICommandContext"/>.</param>
     public static void Cancel(this ICommandContext context)
     {
-        Ensure.Arg.NotNull(context, nameof(context));
+        Ensure.Arg.NotNull(context);
         var feature = context.GetFeature<ICancelableCommandFeature>();
         feature.Cancel();
     }

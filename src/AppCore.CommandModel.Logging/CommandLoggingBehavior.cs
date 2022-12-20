@@ -27,7 +27,7 @@ public class CommandLoggingBehavior<TCommand, TResult> : ICommandPipelineBehavio
     /// <param name="logger">The logger instance used to log events.</param>
     public CommandLoggingBehavior(ILogger<ICommandProcessor> logger)
     {
-        Ensure.Arg.NotNull(logger, nameof(logger));
+        Ensure.Arg.NotNull(logger);
         _logger = logger;
     }
 

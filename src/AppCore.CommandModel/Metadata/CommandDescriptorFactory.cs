@@ -25,7 +25,7 @@ public class CommandDescriptorFactory : ICommandDescriptorFactory
     /// <param name="metadataProviders">The <see cref="IEnumerable{T}"/> of <see cref="ICommandMetadataProvider"/>'s.</param>
     public CommandDescriptorFactory(IEnumerable<ICommandMetadataProvider> metadataProviders)
     {
-        Ensure.Arg.NotNull(metadataProviders, nameof(metadataProviders));
+        Ensure.Arg.NotNull(metadataProviders);
         _metadataProviders = metadataProviders;
     }
 
@@ -48,8 +48,8 @@ public class CommandDescriptorFactory : ICommandDescriptorFactory
     /// <inheritdoc />
     public CommandDescriptor CreateDescriptor(Type commandType)
     {
-        Ensure.Arg.NotNull(commandType, nameof(commandType));
-        Ensure.Arg.OfType(commandType, typeof(ICommand<>), nameof(commandType));
+        Ensure.Arg.NotNull(commandType);
+        Ensure.Arg.OfType(commandType, typeof(ICommand<>));
 
         return new CommandDescriptor(commandType, GetMetadata(commandType));
     }

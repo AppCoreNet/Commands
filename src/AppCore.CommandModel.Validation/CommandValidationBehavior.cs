@@ -25,7 +25,7 @@ public class CommandValidationBehavior<TCommand, TResult> : ICommandPipelineBeha
     /// <param name="validator">The <see cref="IValidator{T}"/> used to validate the command.</param>
     public CommandValidationBehavior(IValidator<TCommand> validator)
     {
-        Ensure.Arg.NotNull(validator, nameof(validator));
+        Ensure.Arg.NotNull(validator);
         _validator = validator;
     }
 

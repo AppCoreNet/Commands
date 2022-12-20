@@ -29,9 +29,9 @@ public class CommandDescriptor
     /// <param name="metadata">The event type metadata.</param>
     public CommandDescriptor(Type commandType, IReadOnlyDictionary<string, object> metadata)
     {
-        Ensure.Arg.NotNull(commandType, nameof(commandType));
-        Ensure.Arg.OfType(commandType, typeof(ICommand<>), nameof(commandType));
-        Ensure.Arg.NotNull(metadata, nameof(metadata));
+        Ensure.Arg.NotNull(commandType);
+        Ensure.Arg.OfType(commandType, typeof(ICommand<>));
+        Ensure.Arg.NotNull(metadata);
 
         CommandType = commandType;
         Metadata = metadata;

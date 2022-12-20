@@ -32,8 +32,8 @@ public class CommandProcessor : ICommandProcessor
         ICommandDescriptorFactory commandDescriptorFactory,
         ICommandContextAccessor? commandContextAccessor = null)
     {
-        Ensure.Arg.NotNull(commandDescriptorFactory, nameof(commandDescriptorFactory));
-        Ensure.Arg.NotNull(activator, nameof(activator));
+        Ensure.Arg.NotNull(commandDescriptorFactory);
+        Ensure.Arg.NotNull(activator);
 
         _commandDescriptorFactory = commandDescriptorFactory;
         _commandContextAccessor = commandContextAccessor;
@@ -43,7 +43,7 @@ public class CommandProcessor : ICommandProcessor
     /// <inheritdoc />
     public async Task<TResult> ProcessAsync<TResult>(ICommand<TResult> command, CancellationToken cancellationToken)
     {
-        Ensure.Arg.NotNull(command, nameof(command));
+        Ensure.Arg.NotNull(command);
 
         Type commandType = command.GetType();
 

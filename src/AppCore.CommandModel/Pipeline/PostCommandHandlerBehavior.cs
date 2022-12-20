@@ -27,7 +27,7 @@ public class PostCommandHandlerBehavior<TCommand, TResult> : ICommandPipelineBeh
     /// <exception cref="ArgumentNullException">Argument <paramref name="handlers"/> is <c>null</c>.</exception>
     public PostCommandHandlerBehavior(IEnumerable<IPostCommandHandler<TCommand, TResult>> handlers)
     {
-        Ensure.Arg.NotNull(handlers, nameof(handlers));
+        Ensure.Arg.NotNull(handlers);
         _handlers = handlers;
     }
 

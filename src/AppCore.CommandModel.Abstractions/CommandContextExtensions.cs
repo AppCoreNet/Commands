@@ -20,8 +20,8 @@ public static class CommandContextExtensions
     /// <exception cref="InvalidOperationException">The command context feature is already registered.</exception>
     public static void AddFeature<T>(this ICommandContext context, T feature)
     {
-        Ensure.Arg.NotNull(context, nameof(context));
-        Ensure.Arg.NotNull(feature, nameof(feature));
+        Ensure.Arg.NotNull(context);
+        Ensure.Arg.NotNull(feature);
 
         try
         {
@@ -42,7 +42,7 @@ public static class CommandContextExtensions
     /// <exception cref="InvalidOperationException">The command context feature is not available.</exception>
     public static T GetFeature<T>(this ICommandContext context)
     {
-        Ensure.Arg.NotNull(context, nameof(context));
+        Ensure.Arg.NotNull(context);
 
         if (!context.Features.TryGetValue(typeof(T), out object feature))
             throw new InvalidOperationException($"Command context feature {typeof(T).GetDisplayName()} is not available.");
@@ -58,7 +58,7 @@ public static class CommandContextExtensions
     /// <returns><c>true</c> if the feature is available; <c>false</c> otherwise.</returns>
     public static bool HasFeature<T>(this ICommandContext context)
     {
-        Ensure.Arg.NotNull(context, nameof(context));
+        Ensure.Arg.NotNull(context);
         return context.Features.ContainsKey(typeof(T));
     }
 }

@@ -52,9 +52,9 @@ public class CommandContext<TCommand, TResult> : ICommandContext<TCommand, TResu
     /// <param name="command">The command that is being processed.</param>
     public CommandContext(CommandDescriptor descriptor, TCommand command)
     {
-        Ensure.Arg.NotNull(descriptor, nameof(descriptor));
+        Ensure.Arg.NotNull(descriptor);
         Ensure.Arg.OfType<TCommand>(descriptor.CommandType, nameof(descriptor));
-        Ensure.Arg.NotNull(command, nameof(command));
+        Ensure.Arg.NotNull(command);
 
         CommandDescriptor = descriptor;
         Command = command;
@@ -68,7 +68,7 @@ public class CommandContext<TCommand, TResult> : ICommandContext<TCommand, TResu
     /// <inheritdoc />
     public void Fail(Exception error)
     {
-        Ensure.Arg.NotNull(error, nameof(error));
+        Ensure.Arg.NotNull(error);
         IsCompleted = true;
         Error = error;
     }
@@ -76,7 +76,7 @@ public class CommandContext<TCommand, TResult> : ICommandContext<TCommand, TResu
     /// <inheritdoc />
     public void Complete(TResult result)
     {
-        Ensure.Arg.NotNull(result, nameof(result));
+        Ensure.Arg.NotNull(result);
         IsCompleted = true;
         Result = result;
     }

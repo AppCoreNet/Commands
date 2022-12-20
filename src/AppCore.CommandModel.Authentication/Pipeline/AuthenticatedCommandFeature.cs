@@ -20,7 +20,7 @@ public class AuthenticatedCommandFeature : IAuthenticatedCommandFeature
     /// <param name="user">The current <see cref="IPrincipal"/>.</param>
     public AuthenticatedCommandFeature(IPrincipal user)
     {
-        Ensure.Arg.NotNull(user, nameof(user));
+        Ensure.Arg.NotNull(user);
         User = user;
     }
 }

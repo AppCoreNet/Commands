@@ -19,7 +19,7 @@ public class CancelableCommandFeature : ICancelableCommandFeature
     /// <param name="cancellationTokenSource">The <see cref="CancellationTokenSource"/>.</param>
     public CancelableCommandFeature(CancellationTokenSource cancellationTokenSource)
     {
-        Ensure.Arg.NotNull(cancellationTokenSource, nameof(cancellationTokenSource));
+        Ensure.Arg.NotNull(cancellationTokenSource);
         _cancellationTokenSource = cancellationTokenSource;
     }
 
