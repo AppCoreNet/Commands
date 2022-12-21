@@ -20,7 +20,7 @@ public static class CommandModelBuilderExtensions
     /// Registers the <see cref="ICommandContextAccessor"/> with the DI container.
     /// </summary>
     /// <returns>The <see cref="ICommandModelBuilder"/>.</returns>
-    public static ICommandModelBuilder WithCommandContext(this ICommandModelBuilder builder)
+    public static ICommandModelBuilder AddCommandContext(this ICommandModelBuilder builder)
     {
         Ensure.Arg.NotNull(builder);
 
@@ -36,7 +36,7 @@ public static class CommandModelBuilderExtensions
     /// <param name="lifetime">The lifetime of the handler.</param>
     /// <returns>The <see cref="ICommandModelBuilder"/>.</returns>
     /// <exception cref="ArgumentNullException">Argument <paramref name="handlerType"/> is <c>null</c>.</exception>
-    public static ICommandModelBuilder WithHandler(
+    public static ICommandModelBuilder AddHandler(
         this ICommandModelBuilder builder,
         Type handlerType,
         ServiceLifetime lifetime = ServiceLifetime.Transient)
@@ -58,7 +58,7 @@ public static class CommandModelBuilderExtensions
     /// <param name="defaultLifetime">The default handler lifetime.</param>
     /// <returns>The <see cref="ICommandModelBuilder"/>.</returns>
     /// <exception cref="ArgumentNullException">Argument <paramref name="configure"/> is <c>null</c>.</exception>
-    public static ICommandModelBuilder WithHandlersFrom(
+    public static ICommandModelBuilder AddHandlersFrom(
         this ICommandModelBuilder builder,
         Action<IServiceDescriptorReflectionBuilder> configure,
         ServiceLifetime defaultLifetime = ServiceLifetime.Transient)
@@ -85,7 +85,7 @@ public static class CommandModelBuilderExtensions
     /// <param name="lifetime">The lifetime of the handler.</param>
     /// <returns>The <see cref="ICommandModelBuilder"/>.</returns>
     /// <exception cref="ArgumentNullException">Argument <paramref name="handlerType"/> is <c>null</c>.</exception>
-    public static ICommandModelBuilder WithPreHandler(
+    public static ICommandModelBuilder AddPreHandler(
         this ICommandModelBuilder builder,
         Type handlerType,
         ServiceLifetime lifetime = ServiceLifetime.Transient)
@@ -107,7 +107,7 @@ public static class CommandModelBuilderExtensions
     /// <param name="defaultLifetime">The default handler lifetime.</param>
     /// <returns>The <see cref="ICommandModelBuilder"/>.</returns>
     /// <exception cref="ArgumentNullException">Argument <paramref name="configure"/> is <c>null</c>.</exception>
-    public static ICommandModelBuilder WithPreHandlersFrom(
+    public static ICommandModelBuilder AddPreHandlersFrom(
         this ICommandModelBuilder builder,
         Action<IServiceDescriptorReflectionBuilder> configure,
         ServiceLifetime defaultLifetime = ServiceLifetime.Transient)
@@ -134,7 +134,7 @@ public static class CommandModelBuilderExtensions
     /// <param name="lifetime">The lifetime of the handler.</param>
     /// <returns>The <see cref="ICommandModelBuilder"/>.</returns>
     /// <exception cref="ArgumentNullException">Argument <paramref name="handlerType"/> is <c>null</c>.</exception>
-    public static ICommandModelBuilder WithPostHandler(
+    public static ICommandModelBuilder AddPostHandler(
         this ICommandModelBuilder builder,
         Type handlerType,
         ServiceLifetime lifetime = ServiceLifetime.Transient)
@@ -156,7 +156,7 @@ public static class CommandModelBuilderExtensions
     /// <param name="defaultLifetime">The default handler lifetime.</param>
     /// <returns>The <see cref="ICommandModelBuilder"/>.</returns>
     /// <exception cref="ArgumentNullException">Argument <paramref name="configure"/> is <c>null</c>.</exception>
-    public static ICommandModelBuilder WithPostHandlersFrom(
+    public static ICommandModelBuilder AddPostHandlersFrom(
         this ICommandModelBuilder builder,
         Action<IServiceDescriptorReflectionBuilder> configure,
         ServiceLifetime defaultLifetime = ServiceLifetime.Transient)
@@ -183,7 +183,7 @@ public static class CommandModelBuilderExtensions
     /// <param name="lifetime">The lifetime of the handler.</param>
     /// <returns>The <see cref="ICommandModelBuilder"/>.</returns>
     /// <exception cref="ArgumentNullException">Argument <paramref name="handlerType"/> is <c>null</c>.</exception>
-    public static ICommandModelBuilder WithBehavior(
+    public static ICommandModelBuilder AddBehavior(
         this ICommandModelBuilder builder,
         Type handlerType,
         ServiceLifetime lifetime = ServiceLifetime.Transient)
@@ -205,7 +205,7 @@ public static class CommandModelBuilderExtensions
     /// <param name="defaultLifetime">The default handler lifetime.</param>
     /// <returns>The <see cref="ICommandModelBuilder"/>.</returns>
     /// <exception cref="ArgumentNullException">Argument <paramref name="configure"/> is <c>null</c>.</exception>
-    public static ICommandModelBuilder WithBehaviorsFrom(
+    public static ICommandModelBuilder AddBehaviorsFrom(
         this ICommandModelBuilder builder,
         Action<IServiceDescriptorReflectionBuilder> configure,
         ServiceLifetime defaultLifetime = ServiceLifetime.Transient)
